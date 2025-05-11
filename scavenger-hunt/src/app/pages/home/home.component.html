@@ -1,0 +1,13 @@
+<div class="home">
+  <h2>Your Hunt Locations</h2>
+  <div class="location-list">
+    <button
+      *ngFor="let loc of locations"
+      class="location-button"
+      [ngClass]="{ completed: completed[loc], pending: !completed[loc] }"
+      (click)="goToLocation(loc)"
+    >
+      Location {{ loc }} - {{ completed[loc] ? 'Completed' : 'Pending' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="app-container">
+  <h1>{{ title }}</h1>
+  <p>Welcome to your Angular app!</p>
+  <app-test></app-test>
+</div>
+
+
+<div class="app-container">
+  <!-- Navbar or Header Section -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a routerLink="/home" class="nav-link">Home</a></li>
+        <li><a routerLink="/login" class="nav-link">Login</a></li>
+        <li><a routerLink="/register" class="nav-link">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer Section (Optional) -->
+  <footer class="footer">
+    <p>&copy; 2025 My Angular App. All rights reserved.</p>
+  </footer>
+</div>

@@ -1,0 +1,80 @@
+/* app.component.css */
+
+/* Base styles for the app container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Navbar or Header */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 16px;
+}
+
+.navbar nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar nav ul li {
+  display: inline;
+}
+
+.navbar nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navbar nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Main content area */
+main {
+  flex: 1;
+  padding: 16px;
+}
+
+/* Footer */
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Mobile-first styling */
+@media screen and (max-width: 600px) {
+  .navbar nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar nav ul li {
+    margin-bottom: 10px;
+  }
+
+  .navbar nav ul li a {
+    font-size: 18px;
+  }
+
+  footer p {
+    font-size: 12px;
+  }
+}
+
+/* Tablet and up */
+@media screen and (min-width: 601px) {
+  .navbar nav ul {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
