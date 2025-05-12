@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { ProgressService } from '../../services/progress.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -15,7 +17,15 @@ export class HomeComponent {
   constructor(private progress: ProgressService, private router: Router) {}
 
   async ngOnInit() {
-    this.completed = await this.progress.getCompleted();
+    console.log('HomeComponent initialized');
+    this.locations = await this.progress.getPath();
+    console.log('Locations:', this.locations);
+    // this.completed = await this.progress.getCompleted();
+    this.completed = {
+      1: true,
+      2: false,
+      3: false
+    };
   }
 
   goToLocation(locId: number) {

@@ -1,1 +1,27 @@
-<p>location works!</p>
+<div class="location">
+  <button class="back-button" (click)="goBack()">← Back</button>
+
+  <h2>Location {{ locationId }}</h2>
+
+  <div *ngIf="content.type === 'text'" class="location-text">
+    <p>{{ content.content }}</p>
+  </div>
+
+  <div *ngIf="content.type === 'video'" class="location-video">
+    <video controls>
+      <source [src]="content.content" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="question-box">
+    <label>{{ content.question }}</label>
+    <input [(ngModel)]="userAnswer" />
+  </div>
+
+  <button class="submit-button" (click)="checkAnswer()">Submit</button>
+
+  <p class="feedback" [ngClass]="{ correct: isCorrect, incorrect: !isCorrect && feedback }">
+    {{ feedback }}
+  </p>
+</div>

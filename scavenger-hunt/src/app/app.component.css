@@ -35,6 +35,7 @@
 
 .navbar nav ul li a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Main content area */
