@@ -1,27 +1,42 @@
-<div class="location">
-  <button class="back-button" (click)="goBack()">← Back</button>
+<div class="location-container">
+  <button class="back-btn" (click)="goBack()">← Back</button>
 
   <h2>Location {{ locationId }}</h2>
 
-  <div *ngIf="content.type === 'text'" class="location-text">
-    <p>{{ content.content }}</p>
+  <!-- Step 1: Code verification -->
+  <div *ngIf="!codeVerified">
+    <p>Enter the code found at this location:</p>
+    <input [(ngModel)]="enteredCode" placeholder="Enter code" />
+    <button (click)="verifyCode()">Submit Code</button>
+    <p *ngIf="feedback" class="feedback">{{ feedback }}</p>
   </div>
 
-  <div *ngIf="content.type === 'video'" class="location-video">
-    <video controls>
-      <source [src]="content.content" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+  <!-- Step 2: Content and question after code verification -->
+  <div *ngIf="codeVerified">
+    <div *ngIf="content.type === 'text'">
+      <p>{{ content.content }}</p>
+    </div>
+
+    <div *ngIf="content.type === 'video'">
+      <video width="100%" controls>
+        <source [src]="content.content" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="question-section">
+      <label>{{ content.question }}</label>
+      <input [(ngModel)]="userAnswer" placeholder="Your answer" />
+      <button (click)="checkAnswer()">Submit Answer</button>
+    </div>
+
+    <p class="feedback" [style.color]="isCorrect ? 'green' : 'red'">
+      {{ feedback }}
+    </p>
+
+    <div *ngIf="isCorrect && hint" class="hint-box">
+      <strong>Hint for next location:</strong>
+      <p>{{ hint }}</p>
+    </div>
   </div>
-
-  <div class="question-box">
-    <label>{{ content.question }}</label>
-    <input [(ngModel)]="userAnswer" />
-  </div>
-
-  <button class="submit-button" (click)="checkAnswer()">Submit</button>
-
-  <p class="feedback" [ngClass]="{ correct: isCorrect, incorrect: !isCorrect && feedback }">
-    {{ feedback }}
-  </p>
 </div>
