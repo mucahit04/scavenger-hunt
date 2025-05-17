@@ -3,11 +3,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { LocationComponent } from './pages/location/location.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ManageGameComponent } from './organizer/manage-game/manage-game.component';
+import { OrganizerDashboardComponent } from './organizer/organizer-dashboard/organizer-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'location/:id', component: LocationComponent }
+  { path: 'location/:id', component: LocationComponent },
+  { path: 'manage-game/:code', component: ManageGameComponent },
+  { path: 'manage-game', component: ManageGameComponent },
+  { path: 'organizer-dashboard', component: OrganizerDashboardComponent }
 ];

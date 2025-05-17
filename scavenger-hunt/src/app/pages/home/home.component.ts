@@ -1,34 +1,45 @@
 import { Component } from '@angular/core';
-import { ProgressService } from '../../services/progress.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  locations = [1, 2, 3];
-  completed: { [key: string]: boolean } = {};
+  gameCode: string = '';
+  username: string = '';
 
-  constructor(private progress: ProgressService, private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
-  async ngOnInit() {
-    console.log('HomeComponent initialized');
-    this.locations = await this.progress.getPath();
-    console.log('Locations:', this.locations);
-    // this.completed = await this.progress.getCompleted();
-    this.completed = {
-      1: true,
-      2: false,
-      3: false
-    };
+  joinGame() {
+    if (!this.username.trim() || !this.gameCode.trim()) {
+      alert('Please enter both a game code and a username.');
+      return;
+    }
+
+    // Store info locally for use in the game
+    localStorage.setItem('gameCode', this.gameCode.trim());
+    localStorage.setItem('username', this.username.trim());
+
+    this.router.navigate(['/location', 1]); // Assume game starts at location 1
   }
 
-  goToLocation(locId: number) {
-    this.router.navigate(['/location', locId]);
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
+
+  simulateLogin() {
+    this.auth.simulateOrganizerLogin();
+    this.router.navigate(['/organizer-dashboard']);
   }
 }

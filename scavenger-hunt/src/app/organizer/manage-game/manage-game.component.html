@@ -1,0 +1,33 @@
+<div class="manage-game">
+  <h2>{{ isEditMode ? 'Edit Game' : 'Create Game' }}</h2>
+
+  <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+    <label>
+      Game Name:
+      <input type="text" formControlName="name" />
+    </label>
+
+    <h3>Locations</h3>
+    <div formArrayName="locations">
+      <div *ngFor="let loc of locations.controls; let i = index" [formGroupName]="i" class="location-form">
+        <label>Code: <input formControlName="code" /></label>
+        <label>Type:
+          <select formControlName="type">
+            <option value="text">Text</option>
+            <option value="video">Video</option>
+          </select>
+        </label>
+        <label>Content: <input formControlName="content" /></label>
+        <label>Question: <input formControlName="question" /></label>
+        <label>Answer: <input formControlName="answer" /></label>
+        <label>Hint: <input formControlName="hint" /></label>
+
+        <button type="button" (click)="removeLocation(i)">Remove</button>
+        <hr />
+      </div>
+    </div>
+
+    <button type="button" (click)="addLocation()">+ Add Location</button>
+    <button type="submit" [disabled]="gameForm.invalid">Save Game</button>
+  </form>
+</div>

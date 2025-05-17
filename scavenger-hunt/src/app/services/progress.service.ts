@@ -1,51 +1,57 @@
 import { Injectable } from '@angular/core';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
+import { Timestamp } from 'firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class ProgressService {
-  constructor(
-    private firestore: Firestore,
-    private auth: AuthService
-  ) {}
+  constructor(private firestore: Firestore) {}
+
+  private getGameInfo() {
+    const gameCode = localStorage.getItem('playerGame');
+    const username = localStorage.getItem('username');
+    return { gameCode, username };
+  }
 
   async markComplete(locationId: number) {
-    const group = this.auth.getGroup();
-    if (!group) return;
+    const { gameCode, username } = this.getGameInfo();
+    if (!gameCode || !username) return;
 
-    const ref = doc(this.firestore, `groups/${group}`);
+    const ref = doc(this.firestore, `games/${gameCode}/players/${username}`);
+    const snap = await getDoc(ref);
+    const data = snap.data() || {};
+
     await setDoc(ref, {
-      progress: { [locationId]: true }
+      ...data,
+      progress: {
+        ...(data['progress'] || {}),
+        [locationId]: true
+      }
     }, { merge: true });
   }
 
   async getCompleted(): Promise<{ [key: string]: boolean }> {
-    const group = this.auth.getGroup();
-    if (!group) return {};
+    const { gameCode, username } = this.getGameInfo();
+    if (!gameCode || !username) return {};
 
-    const ref = doc(this.firestore, `groups/${group}`);
+    const ref = doc(this.firestore, `games/${gameCode}/players/${username}`);
     const snap = await getDoc(ref);
     const data = snap.data() as any;
     return data?.progress || {};
   }
 
   async getPath(): Promise<number[]> {
-    const group = this.auth.getGroup(); // Checks if the group is valid
-    console.log('Group:', group); // Debug log to ensure it's returning the group ID
+    const { gameCode } = this.getGameInfo();
+    if (!gameCode) return [1, 2, 3]; // fallback for dev
 
-    if (!group) return [1, 2, 3];  // If no group, fall back to this list
-    
-    const ref = doc(this.firestore, `groups/${group}`);
-    const snap = await getDoc(ref);
-    
+    const gameRef = doc(this.firestore, `games/${gameCode}`);
+    const snap = await getDoc(gameRef);
+
     if (!snap.exists()) {
-      console.log('No group document found.');
-      return [1, 2, 3];  // Fallback to default if document does not exist
+      console.warn('Game not found:', gameCode);
+      return [1, 2, 3];
     }
-    
+
     const data = snap.data() as any;
-    console.log('Fetched group data:', data); // Debug log
-    
-    return data?.path || [1, 2, 3];  // Return the path if found, otherwise fallback
+    return data?.path || [1, 2, 3];
   }
 }

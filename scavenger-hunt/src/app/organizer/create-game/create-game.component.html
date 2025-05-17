@@ -1,0 +1,14 @@
+<div class="game-form">
+  <h2>Create a New Game</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Game Name</mat-label>
+    <input matInput [(ngModel)]="gameName" placeholder="Enter game name" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="createGame()" [disabled]="loading || !gameName">
+    {{ loading ? 'Creating...' : 'Create Game' }}
+  </button>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+</div>

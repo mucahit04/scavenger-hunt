@@ -1,13 +1,19 @@
-<div class="home">
-  <h2>Your Hunt Locations</h2>
-  <div class="location-list">
-    <button
-      *ngFor="let loc of locations"
-      class="location-button"
-      [ngClass]="{ completed: completed[loc], pending: !completed[loc] }"
-      (click)="goToLocation(loc)"
-    >
-      Location {{ loc }} - {{ completed[loc] ? 'Completed' : 'Pending' }}
-    </button>
+<div class="home-container">
+  <div class="join-section">
+    <h2>Join a Game</h2>
+    <form (ngSubmit)="joinGame()">
+      <input type="text" placeholder="Game Code" [(ngModel)]="gameCode" name="gameCode" required />
+      <input type="text" placeholder="Your Nickname" [(ngModel)]="username" name="username" required />
+      <button type="submit">Join Game</button>
+    </form>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="organizer-section">
+    <h2>Are You an Organizer?</h2>
+    <button (click)="goToLogin()">Login</button>
+    <button (click)="goToRegister()">Register</button>
+    <button class="dummy-login" (click)="simulateLogin()">🔧 Dummy Organizer Login</button>
   </div>
 </div>

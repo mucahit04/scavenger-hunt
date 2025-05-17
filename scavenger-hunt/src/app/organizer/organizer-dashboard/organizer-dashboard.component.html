@@ -1,0 +1,25 @@
+<div class="dashboard">
+  <h2>Organizer Dashboard</h2>
+
+  <button class="create-button" (click)="createGame()">+ Create New Game</button>
+
+  <div *ngFor="let game of games" class="game-section">
+    <div class="game-header" (click)="toggleGameDetails(game.gameCode)">
+      <strong>{{ game.name }}</strong> ({{ game.gameCode }})
+      <div class="action-buttons" (click)="$event.stopPropagation()">
+        <button class="edit-button" (click)="editGame(game.gameCode)">Edit</button>
+        <button class="delete-button" (click)="deleteGame(game.gameCode)">Delete</button>
+      </div>
+    </div>
+
+    <div *ngIf="expandedGameCode === game.gameCode" class="game-details">
+      <p><strong>Players:</strong></p>
+      <ul *ngIf="playerMap[game.gameCode]?.length; else noPlayers">
+        <li *ngFor="let player of playerMap[game.gameCode]">
+          <strong>{{ player.username }}</strong> - Progress: {{ getPlayerProgress(player) }} - Time: {{ getPlayerTime(player) }}
+        </li>
+      </ul>
+      <ng-template #noPlayers><p>No players joined yet.</p></ng-template>
+    </div>
+  </div>
+</div>
