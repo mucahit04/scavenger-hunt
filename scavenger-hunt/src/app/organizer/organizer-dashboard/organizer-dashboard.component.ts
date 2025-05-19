@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Firestore, collection, getDocs, query, where, doc, getDoc, writeBatch } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { dummyGames } from './dummy-games';
 
 
 @Component({
@@ -37,11 +38,19 @@ export class OrganizerDashboardComponent implements OnInit {
   async fetchGames(): Promise<void> {
     const gamesRef = collection(this.firestore, 'games');
     const q = query(gamesRef, where('organizerId', '==', this.organizerId));
-    const snapshot = await getDocs(q);
+    // const snapshot = await getDocs(q);
 
-    this.games = snapshot.docs.map(doc => ({
-      gameCode: doc.id,
-      ...doc.data()
+    // this.games = snapshot.docs.map(doc => {
+    //   const data = doc.data();
+    //   return {
+    //     gameCode: doc.id,
+    //     totalLocations: Object.keys(data['locations'] || {}).length,
+    //     ...data
+    //   };
+    // });
+    this.games = dummyGames.map(game => ({
+      ...game,
+      totalLocations: Object.keys(game.locations || {}).length
     }));
   }
 
@@ -55,6 +64,21 @@ export class OrganizerDashboardComponent implements OnInit {
   }
 
   async fetchPlayersForGame(gameCode: string) {
+    if (gameCode === 'test123') {
+      // Return dummy players for test game
+      this.playerMap[gameCode] = [
+        {
+          username: 'player1',
+          progress: { "1": true, "2": true }
+        },
+        {
+          username: 'player2',
+          progress: { "1": true }
+        }
+      ];
+      return;
+    }
+
     const playersRef = collection(this.firestore, `games/${gameCode}/players`);
     const querySnapshot = await getDocs(playersRef);
 
@@ -64,13 +88,12 @@ export class OrganizerDashboardComponent implements OnInit {
     }));
   }
 
-  getPlayerProgress(player: any): string {
+  getPlayerProgress(player: any, totalLocations: number): string {
     if (player.progress) {
       const completed = Object.values(player.progress).filter((v: any) => v).length;
-      const total = Object.keys(player.progress).length;
-      return `${completed} / ${total}`;
+      return `${completed} / ${totalLocations}`;
     }
-    return 'No progress';
+    return `0 / ${totalLocations}`;
   }
 
   getPlayerTime(player: any): string {

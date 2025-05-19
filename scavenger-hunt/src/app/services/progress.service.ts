@@ -1,57 +1,42 @@
-import { Injectable } from '@angular/core';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
-import { Timestamp } from 'firebase/firestore';
+import { Injectable, inject } from '@angular/core';
+import { Firestore, doc, getDoc, updateDoc, onSnapshot } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class ProgressService {
-  constructor(private firestore: Firestore) {}
+  private firestore = inject(Firestore);
 
-  private getGameInfo() {
-    const gameCode = localStorage.getItem('playerGame');
-    const username = localStorage.getItem('username');
-    return { gameCode, username };
+  async saveProgress(gameCode: string, username: string, index: number): Promise<void> {
+    const progressRef = doc(this.firestore, `games/${gameCode}`);
+    await updateDoc(progressRef, {
+      [`progress.${username}.${index}`]: true
+    });
   }
 
-  async markComplete(locationId: number) {
-    const { gameCode, username } = this.getGameInfo();
-    if (!gameCode || !username) return;
-
-    const ref = doc(this.firestore, `games/${gameCode}/players/${username}`);
-    const snap = await getDoc(ref);
-    const data = snap.data() || {};
-
-    await setDoc(ref, {
-      ...data,
-      progress: {
-        ...(data['progress'] || {}),
-        [locationId]: true
-      }
-    }, { merge: true });
+  watchProgress(gameCode: string, callback: (progress: any) => void) {
+    const ref = doc(this.firestore, `games/${gameCode}`);
+    return onSnapshot(ref, snapshot => {
+      const data = snapshot.data();
+      callback(data?.['progress'] || {});
+    });
   }
 
-  async getCompleted(): Promise<{ [key: string]: boolean }> {
-    const { gameCode, username } = this.getGameInfo();
-    if (!gameCode || !username) return {};
+  /**
+   * Returns the next location index the player should access.
+   * This is determined by the highest completed index + 1.
+   */
+  async getPlayerProgressIndex(gameCode: string, username: string): Promise<number> {
+    const ref = doc(this.firestore, `games/${gameCode}`);
+    const snapshot = await getDoc(ref);
+    const data = snapshot.data();
+    const playerProgress = data?.['progress']?.[username] || {};
 
-    const ref = doc(this.firestore, `games/${gameCode}/players/${username}`);
-    const snap = await getDoc(ref);
-    const data = snap.data() as any;
-    return data?.progress || {};
-  }
+    const completedIndices = Object.keys(playerProgress)
+      .map(k => parseInt(k, 10))
+      .filter(n => !isNaN(n))
+      .sort((a, b) => a - b);
 
-  async getPath(): Promise<number[]> {
-    const { gameCode } = this.getGameInfo();
-    if (!gameCode) return [1, 2, 3]; // fallback for dev
+    if (completedIndices.length === 0) return 1;
 
-    const gameRef = doc(this.firestore, `games/${gameCode}`);
-    const snap = await getDoc(gameRef);
-
-    if (!snap.exists()) {
-      console.warn('Game not found:', gameCode);
-      return [1, 2, 3];
-    }
-
-    const data = snap.data() as any;
-    return data?.path || [1, 2, 3];
+    return Math.max(...completedIndices) + 1;
   }
 }

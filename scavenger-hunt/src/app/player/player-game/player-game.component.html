@@ -1,0 +1,27 @@
+<div class="game-container" *ngIf="hasMoreLocations; else completed">
+  <h2>Welcome, {{ username() }}!</h2>
+  <h3>Location {{ currentLocationIndex() }}</h3>
+
+  <div *ngIf="!showLocation()">
+    <p class="hint">Hint: {{ hint }}</p>
+    <form (ngSubmit)="checkCode()">
+      <input name="answer" type="text" [(ngModel)]="codeInput" placeholder="Enter location code..." />
+      <button type="submit" class="primary-btn">Kontrol et</button>
+    </form>
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </div>
+
+  <app-player-location
+    *ngIf="showLocation()"
+    [location]="locations()[currentLocationIndex()]"
+    [index]="currentLocationIndex()"
+    (locationCompleted)="handleLocationCompleted()"
+  ></app-player-location>
+</div>
+  
+<ng-template #completed>
+  <div class="game-container">
+    <h2>🎉 You've completed the scavenger hunt!</h2>
+  </div>
+</ng-template>
+  

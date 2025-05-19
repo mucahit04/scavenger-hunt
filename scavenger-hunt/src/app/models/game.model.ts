@@ -6,4 +6,5 @@ export interface Game {
   organizerId: string;
   locations: Location[];
   createdAt?: Date;
+  players? : string[]
 }

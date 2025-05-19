@@ -4,22 +4,29 @@
   <button class="create-button" (click)="createGame()">+ Create New Game</button>
 
   <div *ngFor="let game of games" class="game-section">
-    <div class="game-header" (click)="toggleGameDetails(game.gameCode)">
-      <strong>{{ game.name }}</strong> ({{ game.gameCode }})
+    <div class="game-header-row">
+      <div class="game-header" (click)="toggleGameDetails(game.gameCode)">
+        <strong>{{ game.name }}</strong> ({{ game.gameCode }})
+      </div>
       <div class="action-buttons" (click)="$event.stopPropagation()">
-        <button class="edit-button" (click)="editGame(game.gameCode)">Edit</button>
-        <button class="delete-button" (click)="deleteGame(game.gameCode)">Delete</button>
+        <span class="material-icons-outlined" (click)="editGame(game.gameCode)">
+          mode_edit
+        </span>
+        <span class="material-icons-outlined red" (click)="deleteGame(game.gameCode)">
+          delete
+        </span>
       </div>
     </div>
-
+  
     <div *ngIf="expandedGameCode === game.gameCode" class="game-details">
       <p><strong>Players:</strong></p>
       <ul *ngIf="playerMap[game.gameCode]?.length; else noPlayers">
         <li *ngFor="let player of playerMap[game.gameCode]">
-          <strong>{{ player.username }}</strong> - Progress: {{ getPlayerProgress(player) }} - Time: {{ getPlayerTime(player) }}
+          <strong>{{ player.username }}</strong> - Progress: {{ getPlayerProgress(player, game.totalLocations) }}
         </li>
       </ul>
       <ng-template #noPlayers><p>No players joined yet.</p></ng-template>
     </div>
   </div>
+  
 </div>
