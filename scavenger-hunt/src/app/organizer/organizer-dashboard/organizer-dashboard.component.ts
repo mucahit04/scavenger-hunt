@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, NgZone, OnInit, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Firestore, collection, getDocs, query, where, doc, getDoc, writeBatch } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, query, where, doc, getDoc, writeBatch, addDoc, collectionData } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { dummyGames } from './dummy-games';
@@ -17,6 +17,7 @@ export class OrganizerDashboardComponent implements OnInit {
   private readonly firestore = inject(Firestore);
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
+  private readonly ngZone = inject(NgZone);
 
   organizerId: string = '';
   games: any[] = [];
@@ -28,30 +29,35 @@ export class OrganizerDashboardComponent implements OnInit {
     this.organizerId = user?.uid ?? '';
 
     if (!this.organizerId) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
       return;
     }
 
     await this.fetchGames();
   }
 
+  
+  async addTestDoc() {
+    const collRef = collection(this.firestore, 'testCollection');
+    await addDoc(collRef, { message: 'Hello from Angular + Firebase!' });
+  }
+  
   async fetchGames(): Promise<void> {
     const gamesRef = collection(this.firestore, 'games');
     const q = query(gamesRef, where('organizerId', '==', this.organizerId));
-    // const snapshot = await getDocs(q);
 
-    // this.games = snapshot.docs.map(doc => {
-    //   const data = doc.data();
-    //   return {
-    //     gameCode: doc.id,
-    //     totalLocations: Object.keys(data['locations'] || {}).length,
-    //     ...data
-    //   };
-    // });
-    this.games = dummyGames.map(game => ({
-      ...game,
-      totalLocations: Object.keys(game.locations || {}).length
-    }));
+    const snapshot = await getDocs(q);
+
+    this.ngZone.run(() => {
+      this.games = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          gameCode: doc.id,
+          totalLocations: Object.keys(data['locations'] || {}).length,
+          ...data
+        };
+      });
+    });
   }
 
   toggleGameDetails(gameCode: string): void {
@@ -64,20 +70,20 @@ export class OrganizerDashboardComponent implements OnInit {
   }
 
   async fetchPlayersForGame(gameCode: string) {
-    if (gameCode === 'test123') {
-      // Return dummy players for test game
-      this.playerMap[gameCode] = [
-        {
-          username: 'player1',
-          progress: { "1": true, "2": true }
-        },
-        {
-          username: 'player2',
-          progress: { "1": true }
-        }
-      ];
-      return;
-    }
+    // if (gameCode === 'test123') {
+    //   // Return dummy players for test game
+    //   this.playerMap[gameCode] = [
+    //     {
+    //       username: 'player1',
+    //       progress: { "1": true, "2": true }
+    //     },
+    //     {
+    //       username: 'player2',
+    //       progress: { "1": true }
+    //     }
+    //   ];
+    //   return;
+    // }
 
     const playersRef = collection(this.firestore, `games/${gameCode}/players`);
     const querySnapshot = await getDocs(playersRef);

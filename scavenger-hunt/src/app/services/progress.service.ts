@@ -5,11 +5,11 @@ import { Firestore, doc, getDoc, updateDoc, onSnapshot } from '@angular/fire/fir
 export class ProgressService {
   private firestore = inject(Firestore);
 
-  async saveProgress(gameCode: string, username: string, index: number): Promise<void> {
+  async saveProgress(gameCode: string, username: string, index: number, isGameCompleted: boolean): Promise<void> {
     const progressRef = doc(this.firestore, `games/${gameCode}`);
     await updateDoc(progressRef, {
-      [`progress.${username}.${index}`]: true
-    });
+        [`players.${username}`]: {progressIndex: index, completed: isGameCompleted}
+      });
   }
 
   watchProgress(gameCode: string, callback: (progress: any) => void) {
@@ -24,19 +24,13 @@ export class ProgressService {
    * Returns the next location index the player should access.
    * This is determined by the highest completed index + 1.
    */
-  async getPlayerProgressIndex(gameCode: string, username: string): Promise<number> {
+  async getPlayerProgressIndex(gameCode: string, username: string): Promise<[number, boolean]> {
     const ref = doc(this.firestore, `games/${gameCode}`);
     const snapshot = await getDoc(ref);
     const data = snapshot.data();
-    const playerProgress = data?.['progress']?.[username] || {};
+    const playerProgress = data?.['players']?.[username].progressIndex || 0;
+    const isGameCompleted = data?.['players']?.[username].completed || false;
 
-    const completedIndices = Object.keys(playerProgress)
-      .map(k => parseInt(k, 10))
-      .filter(n => !isNaN(n))
-      .sort((a, b) => a - b);
-
-    if (completedIndices.length === 0) return 1;
-
-    return Math.max(...completedIndices) + 1;
+    return [playerProgress, isGameCompleted];
   }
 }

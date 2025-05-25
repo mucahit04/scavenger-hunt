@@ -30,50 +30,47 @@ export class HomeComponent {
     const name = this.username.trim();
     this.loading = true;
 
-    if (this.gameCode.trim() === 'test123') {
-      localStorage.setItem('isDummyGame', 'true');
+    try {
+      const gameRef = doc(this.firestore, `games/${code}`);
+      const gameSnap = await getDoc(gameRef);
+      
+      if (!gameSnap.exists()) {
+        alert('Game not found. Please check the code.');
+        this.loading = false;
+        return;
+      }
+
+      // Register player progress in the game if not exists
+      const gameData = gameSnap.data() as any;
+      console.log(gameData.locations);
+      const players = gameData.players || {};
+
+      if (!players[name]) {
+        players[name] = {
+          nickname: name,
+          progressIndex: 0,
+          // completedAt: "",
+          // answers: {}
+        };
+
+        // ✅ Update the game document with merged players map
+        console.log(gameData, players[name]);
+      }
+      await updateDoc(gameRef, {
+        [`players.${name}`]: players[name]
+      });
+
+      // Store locally
       localStorage.setItem('gameCode', code);
       localStorage.setItem('username', name);
+
+      this.router.navigate(['/play', code]); // Go to player screen
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred while joining the game.');
+    } finally {
+      this.loading = false;
     }
-
-    this.router.navigate(['/play/test123']);
-
-    // try {
-    //   const gameRef = doc(this.firestore, `games/${code}`);
-    //   const gameSnap = await getDoc(gameRef);
-
-    //   if (!gameSnap.exists()) {
-    //     alert('Game not found. Please check the code.');
-    //     this.loading = false;
-    //     return;
-    //   }
-
-    //   // Register player progress in the game if not exists
-    //   const gameData = gameSnap.data() as any;
-    //   const players = gameData.players || {};
-
-    //   if (!players[name]) {
-    //     players[name] = {
-    //       nickname: name,
-    //       currentIndex: 0,
-    //       completedAt: [],
-    //       answers: {}
-    //     };
-
-    //     await updateDoc(gameRef, { players }); // Save updated players
-    //   }
-
-    //   // Store locally
-    //   localStorage.setItem('gameCode', code);
-    //   localStorage.setItem('username', name);
-
-    //   this.router.navigate(['/play', code]); // Go to player screen
-    // } catch (err) {
-    //   console.error(err);
-    //   alert('An error occurred while joining the game.');
-    // } finally {
-    //   this.loading = false;
-    // }
   }
 
   goToLogin() {

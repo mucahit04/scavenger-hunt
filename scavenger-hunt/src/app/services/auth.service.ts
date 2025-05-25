@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User } from '@angular/fire/auth';
-import { Firestore, setDoc, doc } from '@angular/fire/firestore';
+import { Firestore, setDoc, doc, serverTimestamp } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
@@ -17,28 +17,30 @@ export class AuthService {
     });
   }
 
-  async register(email: string, password: string) {
+  async register(email: string, password: string, name: string): Promise<User> {
     const cred = await createUserWithEmailAndPassword(this.auth, email, password);
-    // Optionally create organizer profile in Firestore
+    // Create organizer profile in Firestore
     await setDoc(doc(this.db, `organizers/${cred.user.uid}`), {
       email: cred.user.email,
-      createdAt: new Date()
+      role: 'organizer',  // optional
+      displayName: name,    // optional future use
+      createdAt: serverTimestamp() // Use this instead of `new Date()`
     }, { merge: true });
-    return this.router.navigate(['/organizer-dashboard']);
+    return cred.user;
   }
 
-  async login(email: string, password: string) {
-    await signInWithEmailAndPassword(this.auth, email, password);
-    return this.router.navigate(['/organizer-dashboard']);
+  async login(email: string, password: string): Promise<User> {
+    const cred = await signInWithEmailAndPassword(this.auth, email, password);
+    return cred.user;
   }
 
-  logout() {
-    signOut(this.auth);
+  async logout(): Promise<void> {
+    await signOut(this.auth);
     this.currentUser = null;
-    this.router.navigate(['/home']);
+    await this.router.navigate(['/']);
   }
 
-  getUser() {
+  getUser(): User | null {
     return this.currentUser;
   }
 
@@ -46,7 +48,7 @@ export class AuthService {
     return !!this.currentUser;
   }
 
-  /** 🔧 For testing: simulate a logged-in organizer */
+  // Dev helpers
   simulateOrganizerLogin(): void {
     this.currentUser = {
       uid: 'dummy-organizer-uid',

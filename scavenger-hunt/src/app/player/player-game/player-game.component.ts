@@ -28,6 +28,7 @@ export class PlayerGameComponent {
   gameCode = signal(localStorage.getItem('gameCode') ?? '');
   codeInput = signal('');
   error = signal('');
+  isGameCompleted = signal(false);
 
   showLocation = signal(false);
 
@@ -36,35 +37,31 @@ export class PlayerGameComponent {
   }
 
   private async loadGame() {
-    if(this.gameCode() == "test123"){
-      this.game.set(dummyGames[0]);
-      this.locations.set(this.game().locations);
-      console.log(this.locations());
-      this.currentLocationIndex.set(1);
+    const ref = doc(this.firestore, `games/${this.gameCode()}`);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
+      this.error.set('Game not found.');
+      return;
+    }
+    // Load current progress
+    const [index, isCompleted] = await this.progressService.getPlayerProgressIndex(this.gameCode(), this.username());
+    console.log(this.showLocation());
+    this.currentLocationIndex.set(index);
+    if(isCompleted){
+      console.log(isCompleted);
+      this.isGameCompleted.set(true);
       return;
     }
 
-    // const ref = doc(this.firestore, `games/${this.gameCode()}`);
-    // const snap = await getDoc(ref);
-    // if (!snap.exists()) {
-    //   this.error.set('Game not found.');
-    //   return;
-    // }
-
-    // const data = snap.data();
-    // this.game.set(data);
-    // const locationArray: Location[] = Object.values(data['locations'] || {});
-    // this.locations.set(locationArray);
-
-    // // Load current progress
-    // const index = await this.progressService.getPlayerProgressIndex(this.gameCode(), this.username());
-    // this.currentLocationIndex.set(index);
+    const data = snap.data();
+    this.game.set(data);
+    const locationArray: Location[] = Object.values(data['locations'] || {});
+    this.locations.set(locationArray);
   }
 
   checkCode() {
     const entered = this.codeInput().trim().toLowerCase();
     const expected = this.locations()[this.currentLocationIndex()]?.code.toLowerCase();
-
     if (entered === expected) {
       this.showLocation.set(true);
       this.error.set('');
@@ -74,12 +71,20 @@ export class PlayerGameComponent {
   }
 
   async handleLocationCompleted() {
-    const nextIndex = this.currentLocationIndex() + 1;
-    console.log(this.locations()[nextIndex]);
-    // await this.progressService.saveProgress(this.gameCode(), this.username(), nextIndex);
-    this.currentLocationIndex.set(nextIndex);
-    this.codeInput.set('');
+    let nextIndex = this.currentLocationIndex();
+    if(this.hasMoreLocations){
+      this.isGameCompleted.set(false);
+      nextIndex = this.currentLocationIndex() + 1;
+      this.currentLocationIndex.set(nextIndex);
+      this.codeInput.set('');
+    }
+    
+    if(nextIndex > this.locations.length){
+      this.isGameCompleted.set(true);
+    }
+    await this.progressService.saveProgress(this.gameCode(), this.username(), nextIndex, this.isGameCompleted());
     this.showLocation.set(false);
+    console.log(this.hasMoreLocations, this.isGameCompleted());
   }
 
   get hint(): string {
@@ -87,6 +92,6 @@ export class PlayerGameComponent {
   }
 
   get hasMoreLocations(): boolean {
-    return this.currentLocationIndex() < Object.keys(this.locations).length;
+    return this.currentLocationIndex() < this.locations().length;
   }
 }

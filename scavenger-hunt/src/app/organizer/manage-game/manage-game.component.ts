@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -52,7 +52,7 @@ export class ManageGameComponent {
     return this.fb.group({
       code: ['', Validators.required],
       type: ['text', Validators.required],
-      content: ['', Validators.required],
+      keyword: ['', Validators.required],
       question: ['', Validators.required],
       answer: ['', Validators.required],
       hint: ['']
@@ -102,7 +102,7 @@ export class ManageGameComponent {
     const game = {
       name,
       organizerId: user?.uid ?? '',
-      locations: locationMap
+      locations: locations
     };
 
     await setDoc(doc(this.firestore, `games/${codeToUse}`), game, { merge: true });
