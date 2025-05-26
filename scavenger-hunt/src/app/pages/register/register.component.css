@@ -4,8 +4,9 @@
 
 .register-container {
   max-width: 400px;
-  margin-top: 2rem;
-  padding: 1rem;
+  margin: auto;
+  padding: 2rem;
+  text-align: left;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
