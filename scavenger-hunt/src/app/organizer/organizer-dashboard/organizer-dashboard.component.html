@@ -7,6 +7,7 @@
     <div class="game-header-row">
       <div class="game-header" (click)="toggleGameDetails(game.gameCode)">
         <strong>{{ game.name }}</strong> ({{ game.gameCode }})
+        <span class="arrow" [class.rotated]="isExpanded(game.gameCode)">▼</span>
       </div>
       <div class="action-buttons" (click)="$event.stopPropagation()">
         <span class="material-icons-outlined" (click)="editGame(game.gameCode)">

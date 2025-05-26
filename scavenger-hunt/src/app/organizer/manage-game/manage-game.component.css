@@ -2,14 +2,17 @@
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #f9f9f9;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  box-shadow: var(--box-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: var(--font-family);
 }
 
 h2 {
   text-align: center;
   margin-bottom: 1.5rem;
+  color: var(--text-color);
 }
 
 form {
@@ -24,89 +27,95 @@ label {
   font-weight: 600;
   font-size: 1rem;
   margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
-input[type="text"],
+input,
 select {
-  padding: 0.5rem;
+  padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 0.3rem;
+  border-radius: var(--border-radius);
+  background-color: white;
+  color: var(--text-color);
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
+button[type="button"],
+button[type="submit"] {
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
 }
 
 button[type="button"] {
-  background-color: #2196f3;
-  color: white;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
   align-self: flex-start;
 }
 
+button[type="button"]:hover {
+  background-color: #ffc107;
+}
+
 button[type="submit"] {
-  background-color: #4caf50;
+  background-color: var(--primary-color);
   color: white;
-  padding: 0.7rem 1.2rem;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
   align-self: flex-start;
 }
 
 button[type="submit"]:disabled {
-  background-color: #a5d6a7;
+  background-color: #aaa;
   cursor: not-allowed;
 }
 
 .location-form {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background: var(--background-color);
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
   padding: 1rem;
   margin-bottom: 1rem;
   position: relative;
-
-  /* Mobile first: single column */
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 .location-form label {
-  /* full width on mobile */
   flex: 1 1 100%;
-  display: flex;
-  flex-direction: column;
   font-weight: 600;
-  margin-bottom: 0;
+  color: var(--text-color);
 }
 
 .location-form input,
 .location-form select {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 0.3rem;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-  color: #333;
+  border-radius: var(--border-radius);
+  padding: 0.6rem 0.8rem;
 }
 
 .location-form button {
   align-self: flex-end;
-  background-color: #d9534f;
+  background-color: var(--danger-color);
   color: white;
   border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .location-form button:hover {
@@ -117,10 +126,9 @@ button[type="submit"]:disabled {
   border: none;
   border-top: 1px solid #eee;
   margin-top: 1rem;
-  margin-bottom: 0;
 }
 
-/* Larger screens (tablets and up): two-column layout */
+/* Tablet and up: two-column layout */
 @media (min-width: 600px) {
   .location-form {
     flex-direction: row;
@@ -129,13 +137,5 @@ button[type="submit"]:disabled {
 
   .location-form label {
     flex: 1 1 45%;
-  }
-
-  /* Remove button stays aligned to top-right */
-  .location-form button {
-    /* position: absolute;
-    top: 1rem;
-    right: 1rem;
-    align-self: auto; */
   }
 }

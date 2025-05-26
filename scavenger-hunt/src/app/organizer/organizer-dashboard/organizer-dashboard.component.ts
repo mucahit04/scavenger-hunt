@@ -69,6 +69,10 @@ export class OrganizerDashboardComponent implements OnInit {
     }
   }
 
+  isExpanded(gameCode:string): boolean{
+    return this.expandedGameCode === gameCode;
+  }
+
   async fetchPlayersForGame(gameCode: string) {
     // if (gameCode === 'test123') {
     //   // Return dummy players for test game

@@ -1,8 +1,19 @@
 .auth-page {
   max-width: 400px;
-  margin: auto;
+  margin: 2rem auto;
   padding: 2rem;
-  text-align: left;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  background: var(--background-color);
+  font-family: var(--font-family);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  text-align: center;
+  color: var(--primary-text, #4b2e0e);
+  margin-bottom: 1.5rem;
+  font-family: var(--heading-font, 'Georgia', serif);
 }
 
 form {
@@ -13,8 +24,8 @@ form {
 
 label {
   font-weight: bold;
-  display: block;
   margin-bottom: 0.5rem;
+  color: var(--label-color, #4b2e0e);
 }
 
 input {
@@ -22,31 +33,44 @@ input {
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: 1px solid var(--input-border, #bfa984);
+  border-radius: 8px;
+  background-color: var(--input-bg, #fffef8);
+  color: var(--input-text, #4b2e0e);
+}
+
+input:focus {
+  border-color: var(--accent-color, #c49b66);
+  outline: none;
 }
 
 button {
   padding: 0.75rem;
   font-size: 1rem;
-  background-color: #1976d2;
-  color: white;
+  background-color: var(--button-bg, #c49b66);
+  color: var(--button-text, #fff);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--button-hover-bg, #a8794f);
 }
 
 button:disabled {
-  background-color: #a0a0a0;
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
 small {
-  color: red;
-  font-size: 0.8rem;
+  color: var(--error-color, #d9534f);
+  font-size: 0.85rem;
 }
 
 .error {
-  color: red;
+  color: var(--error-color, #d9534f);
   font-weight: bold;
+  text-align: center;
 }
