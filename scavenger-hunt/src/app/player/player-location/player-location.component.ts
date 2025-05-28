@@ -2,8 +2,6 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Location } from '../../models/location.model';
-import { SafeUrlPipe } from '../../shared/safe-url.pipe';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player-location',
@@ -17,15 +15,16 @@ export class PlayerLocationComponent implements OnInit{
   @Input() index!: number;
   
   @Output() locationCompleted = new EventEmitter<void>();
+  @Output() nextLocation = new EventEmitter<void>();
   
-  safeVideoUrl: SafeResourceUrl | null = null;
   inputAnswer: string = '';
   feedbackMessage: string = '';
   completed: boolean = false;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor() {}
   
   ngOnInit(): void {
+    console.log(this.location);
   }
 
   submitAnswer() {
@@ -38,12 +37,7 @@ export class PlayerLocationComponent implements OnInit{
     }
   }
 
-  private sanitizeAndConvertYouTubeUrl(url: string): SafeResourceUrl {
-    const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu.be\/)([\w\-]+)/);
-    const embedUrl = match && match[1]
-      ? `https://www.youtube.com/embed/${match[1]}`
-      : url;
-
-    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  toNextLocation(){
+    this.nextLocation.emit();
   }
 }

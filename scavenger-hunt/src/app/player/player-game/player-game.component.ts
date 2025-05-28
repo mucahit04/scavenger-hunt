@@ -9,11 +9,12 @@ import { PlayerLocationComponent } from '../player-location/player-location.comp
 import { Location } from '../../models/location.model';
 import { ProgressService } from '../../services/progress.service';
 import { dummyGames } from '../../organizer/organizer-dashboard/dummy-games';
+import { CompassSpinnerComponent } from '../../shared/compass-spinner/compass-spinner.component';
 
 @Component({
   selector: 'app-player-game',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, PlayerLocationComponent],
+  imports: [CommonModule, FormsModule, RouterModule, PlayerLocationComponent, CompassSpinnerComponent],
   templateUrl: './player-game.component.html',
   styleUrls: ['./player-game.component.css']
 })
@@ -29,6 +30,7 @@ export class PlayerGameComponent {
   codeInput = signal('');
   error = signal('');
   isGameCompleted = signal(false);
+  loading = true;
 
   showLocation = signal(false);
 
@@ -44,13 +46,15 @@ export class PlayerGameComponent {
       return;
     }
     // Load current progress
-    const [index, isCompleted] = await this.progressService.getPlayerProgressIndex(this.gameCode(), this.username());
-    console.log(this.showLocation());
-    this.currentLocationIndex.set(index);
-    if(isCompleted){
-      console.log(isCompleted);
-      this.isGameCompleted.set(true);
-      return;
+    try{
+      const [index, isCompleted] = await this.progressService.getPlayerProgressIndex(this.gameCode(), this.username());
+      this.currentLocationIndex.set(index);
+      if(isCompleted){
+        this.isGameCompleted.set(true);
+        return;
+      }
+    } finally{
+      this.loading = false;
     }
 
     const data = snap.data();
@@ -78,13 +82,15 @@ export class PlayerGameComponent {
       this.currentLocationIndex.set(nextIndex);
       this.codeInput.set('');
     }
-    
-    if(nextIndex > this.locations.length){
+    if(nextIndex > this.locations().length){
       this.isGameCompleted.set(true);
     }
     await this.progressService.saveProgress(this.gameCode(), this.username(), nextIndex, this.isGameCompleted());
     this.showLocation.set(false);
-    console.log(this.hasMoreLocations, this.isGameCompleted());
+  }
+
+  nextLocation(){
+    this.currentLocationIndex.update(value => value + 1);
   }
 
   get hint(): string {

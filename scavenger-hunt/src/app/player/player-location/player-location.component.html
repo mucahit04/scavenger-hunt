@@ -1,6 +1,6 @@
 <div class="location-container">
   <!-- Clue Content -->
-  <div *ngIf="location.type === 'text'" class="location-content">
+  <div *ngIf="!completed" class="location-content">
     <p>Anahtar kelimeniz 
       <span>{{ location.keyword }}</span>. 
       Bilgine gidip anahtar kelimeyi soyleyiniz. Bilgin size bir hikaye anlatacak ve sonunda soru soracak.
@@ -31,5 +31,6 @@
 
   <div *ngIf="completed" class="completed-message">
     ✅ You answered correctly! Get ready for the next location.
+    <button class="primary-btn" (click)="toNextLocation()">Next location</button>
   </div>
 </div>

@@ -1,27 +1,35 @@
-<div class="game-container" *ngIf="hasMoreLocations; else completed">
-  <h2>Welcome, {{ username() }}!</h2>
-  <h3>Location {{ currentLocationIndex() +1}}</h3>
+<ng-container *ngIf="!loading; else loadingSpinner">
+  <div class="game-container" *ngIf="hasMoreLocations; else finished">
+    <h2>Welcome, {{ username() }}!</h2>
+    <h3>Location {{ currentLocationIndex() + 1 }}</h3>
 
-  <div *ngIf="!showLocation() && !isGameCompleted()">
-    <p class="hint">Hint: {{ hint }}</p>
-    <form (ngSubmit)="checkCode()">
-      <input name="answer" type="text" [(ngModel)]="codeInput" placeholder="Enter location code..." />
-      <button type="submit" class="primary-btn">Kontrol et</button>
-    </form>
-    <p class="error" *ngIf="error()">{{ error() }}</p>
+    <div *ngIf="!showLocation() && !isGameCompleted()">
+      <p class="hint">Hint: {{ hint }}</p>
+      <form (ngSubmit)="checkCode()">
+        <input name="answer" type="text" [(ngModel)]="codeInput" placeholder="Enter location code..." />
+        <button type="submit" class="primary-btn">Kontrol et</button>
+      </form>
+      <p class="error" *ngIf="error()">{{ error() }}</p>
+    </div>
+
+    <app-player-location
+      *ngIf="showLocation()"
+      [location]="locations()[currentLocationIndex()]"
+      [index]="currentLocationIndex()"
+      (locationCompleted)="handleLocationCompleted()"
+      (nextLocation)="nextLocation()"
+    ></app-player-location>
   </div>
 
-  <app-player-location
-    *ngIf="showLocation()"
-    [location]="locations()[currentLocationIndex()]"
-    [index]="currentLocationIndex()"
-    (locationCompleted)="handleLocationCompleted()"
-  ></app-player-location>
-</div>
-  
-<ng-template #completed>
-  <div class="game-container">
-    <h2>🎉 You've completed the scavenger hunt!</h2>
+  <ng-template #finished class="completed-message">
+    <div class="game-container">
+      <h2>🎉 You've completed the scavenger hunt!</h2>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #loadingSpinner>
+  <div class="game-container" style="text-align: center;">
+    <app-compass-spinner></app-compass-spinner>
   </div>
 </ng-template>
-  

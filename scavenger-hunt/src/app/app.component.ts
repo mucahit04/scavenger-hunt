@@ -17,6 +17,7 @@ export class AppComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    document.body.classList.remove('loading');
     this.user = this.authService.getUser();
 
     // Redirect on app load or refresh
