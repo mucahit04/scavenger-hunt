@@ -11,17 +11,12 @@
     <div formArrayName="locations">
       <div *ngFor="let loc of locations.controls; let i = index" [formGroupName]="i" class="location-form">
         <label>Code: <input formControlName="code" /></label>
-        <label>Type:
-          <select formControlName="type">
-            <option value="text">Text</option>
-            <option value="video">Video</option>
-          </select>
-        </label>
         <label>Question: <input formControlName="question" /></label>
         <label>Keyword: <input formControlName="keyword" /></label>
         <label>Answer: <input formControlName="answer" /></label>
+        <label>Image: <input type="file" (change)="onFileSelected($event, i)" /></label>
+        <img *ngIf="loc.value.imageUrl" [src]="loc.value.imageUrl" width="100" />
         <label>Hint: <input formControlName="hint" /></label>
-
         <button type="button" (click)="removeLocation(i)">Remove</button>
         <hr />
       </div>

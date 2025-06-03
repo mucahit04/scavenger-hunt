@@ -1,24 +1,37 @@
 <div class="auth-page">
-  <h2>Login</h2>
+  <h2>{{ 'auth.login_title' | translate }}</h2>
 
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="form-group">
-      <label>Email</label>
+      <label>{{ 'form.email' | translate }}</label>
       <input formControlName="email" type="email" />
-      <small *ngIf="email?.touched && email?.errors?.['required']">Email is required</small>
-      <small *ngIf="email?.errors?.['email']">Invalid email</small>
+      <small *ngIf="email?.touched && email?.errors?.['required']">
+        {{ 'validation.email_required' | translate }}
+      </small>
+      <small *ngIf="email?.errors?.['email']">
+        {{ 'validation.invalid_email' | translate }}
+      </small>
     </div>
 
     <div class="form-group">
-      <label>Password</label>
+      <label>{{ 'form.password' | translate }}</label>
       <input formControlName="password" type="password" />
-      <small *ngIf="password?.touched && password?.errors?.['required']">Password is required</small>
+      <small *ngIf="password?.touched && password?.errors?.['required']">
+        {{ 'validation.password_required' | translate }}
+      </small>
     </div>
 
-    <button type="submit" [disabled]="isSubmitting || loginForm.invalid">Log In</button>
+    <button type="submit" [disabled]="isSubmitting || loginForm.invalid">
+      {{ 'auth.login_button' | translate }}
+    </button>
 
     <div *ngIf="errorMessage" class="error">
       {{ errorMessage }}
     </div>
   </form>
+
+  <p class="register-link">
+    {{ 'auth.no_account' | translate }}
+    <a routerLink="/register">{{ 'auth.register_here' | translate }}</a>
+  </p>
 </div>

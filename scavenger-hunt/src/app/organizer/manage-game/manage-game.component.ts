@@ -4,11 +4,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Firestore, addDoc, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService } from '../../services/auth.service';
+import { UploadService } from '../../services/upload.service';
 
 @Component({
   selector: 'app-manage-game',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  providers:[UploadService],
   templateUrl: './manage-game.component.html',
   styleUrls: ['./manage-game.component.css']
 })
@@ -22,6 +24,11 @@ export class ManageGameComponent {
   gameForm!: FormGroup;
   isEditMode: boolean = false;
   gameCode: string = '';
+
+  imageFile: File | null = null;
+  imageUrl: string = '';
+
+  constructor(private uploadService: UploadService){}
 
   async ngOnInit() {
     this.initForm();
@@ -55,7 +62,8 @@ export class ManageGameComponent {
       keyword: ['', Validators.required],
       question: ['', Validators.required],
       answer: ['', Validators.required],
-      hint: ['']
+      hint: [''],
+      imageUrl: ['']
     });
   }
 
@@ -65,6 +73,20 @@ export class ManageGameComponent {
 
   removeLocation(index: number) {
     this.locations.removeAt(index);
+  }
+
+  onFileSelected(event: Event, index: number) {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    if (!file) return;
+
+    this.uploadImage(file).then(url => {
+      this.locations.at(index).patchValue({ imageUrl: url });
+    });
+  }
+
+  async uploadImage(file: File): Promise<string> {
+    return this.uploadService.uploadImage(file);
   }
 
   async loadGame(code: string) {

@@ -1,0 +1,72 @@
+{
+  "home": {
+    "title": "Welcome to the Treasure Hunt",
+    "join_game": "Join a Game",
+    "game_code": "Game Code",
+    "nickname": "Your Nickname",
+    "join_button": "Join Game",
+    "organizer_prompt": "Are You an Organizer?"
+  },
+  "navbar": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
+  "player": {
+    "welcome": "Welcome, {{username}}!",
+    "location": "Location {{number}}",
+    "hint": "Hint",
+    "enter_code_placeholder": "Enter location code...",
+    "check_button": "Check",
+    "completed_location": "🎯 You’ve completed this location!",
+    "next_location": "Next Location",
+    "game_completed": "🎉 You've completed the scavenger hunt!",
+    "play_again": "Wanna play one more game?",
+    "join_game": "Join a game",
+    "submit_answer": "Answer",
+    "enter_answer_placeholder": "Your answer..."
+  },
+  "errors": {
+    "game_not_found": "Game not found.",
+    "incorrect_location_code": "Incorrect code, try again.",
+    "game_not_found_with_tip": "Game not found. Please check the code.",
+    "missing_game_code_or_nickname": "Please enter both a game code and a nickname."
+  },
+  "auth": {
+    "login_title": "Login",
+    "login_button": "Log In",
+    "no_account": "No account yet?",
+    "register_here": "Register here",
+    "register_title": "Create Account",
+    "register_button": "Register",
+    "already_account": "Already have an account?",
+    "login_here": "Login here"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "name_placeholder": "Your name",
+    "email_placeholder": "you@example.com",
+    "password_placeholder": "Minimum 6 characters"
+  },
+  "validation": {
+    "name_required": "Name is required.",
+    "name_minlength": "Minimum 5 characters.",
+    "email_required": "Email is required.",
+    "invalid_email": "Enter a valid email.",
+    "password_required": "Password is required.",
+    "password_minlength": "Minimum 6 characters."
+  },
+  "dashboard": {
+    "organizer_dashboard": "Organizer Dashboard",
+    "create_new_game": "Create New Game",
+    "edit": "Edit",
+    "delete": "Delete",
+    "players": "Players",
+    "progress": "Progress",
+    "no_players_yet": "No players joined yet."
+  }
+}

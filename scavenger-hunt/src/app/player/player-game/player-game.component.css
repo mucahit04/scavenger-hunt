@@ -59,8 +59,22 @@ input:focus {
   font-weight: 600;
 }
 
+.home-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
 
-/* @keyframes fadeInPop {
+.home-link a {
+  color: var(--link-color, #007bff);
+  text-decoration: none;
+}
+
+.home-link a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeInPop {
   0% {
     opacity: 0;
     transform: scale(0.95);
@@ -78,4 +92,4 @@ input:focus {
   margin-top: 1rem;
   text-align: center;
   animation: fadeInPop 0.6s ease-out;
-} */
+}

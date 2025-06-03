@@ -1,36 +1,17 @@
 <div class="location-container">
-  <!-- Clue Content -->
-  <div *ngIf="!completed" class="location-content">
-    <p>Anahtar kelimeniz 
-      <span>{{ location.keyword }}</span>. 
-      Bilgine gidip anahtar kelimeyi soyleyiniz. Bilgin size bir hikaye anlatacak ve sonunda soru soracak.
-      Cevabini asagiya yazip gonderin.
-    </p>
-  </div>
-
-  <!-- <div *ngIf="location.type === 'video'" class="location-content">
-    <iframe [src]="safeVideoUrl" frameborder="0" allowfullscreen></iframe>
-  </div> -->
-
   <!-- Question + Answer -->
   <form *ngIf="!completed" (ngSubmit)="submitAnswer()" class="question-section">
     <p class="question-text">
-      Bu hikayenin sorusu icin cevabiniz:
-      <!-- {{ location.question }} -->
+      {{ location.question | translate }}
     </p>
     <input
       type="text"
       name="answer"
       [(ngModel)]="inputAnswer"
-      placeholder="Cevabiniz..."
+      [placeholder]="'player.enter_answer_placeholder' | translate"
       class="answer-input"
     />
-    <button type="submit" class="primary-btn">Cevapla</button>
-    <p *ngIf="feedbackMessage" class="error">{{ feedbackMessage }}</p>
+    <button type="submit" class="primary-btn">{{ 'player.submit_answer' | translate }}</button>
+    <p *ngIf="feedbackMessage" class="error">{{ feedbackMessage | translate }}</p>
   </form>
-
-  <div *ngIf="completed" class="completed-message">
-    ✅ You answered correctly! Get ready for the next location.
-    <button class="primary-btn" (click)="toNextLocation()">Next location</button>
-  </div>
 </div>

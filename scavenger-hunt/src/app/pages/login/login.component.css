@@ -74,3 +74,18 @@ small {
   font-weight: bold;
   text-align: center;
 }
+
+.register-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.register-link a {
+  color: var(--link-color, #007bff);
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

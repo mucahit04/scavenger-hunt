@@ -1,18 +1,20 @@
 <div class="home-container">
+  <h1>{{ 'home.title' | translate }}</h1>
+
   <div class="join-section">
-    <h2>Join a Game</h2>
+    <h2>{{ 'home.join_game' | translate }}</h2>
     <form (ngSubmit)="joinGame()">
-      <input type="text" placeholder="Game Code" [(ngModel)]="gameCode" name="gameCode" required />
-      <input type="text" placeholder="Your Nickname" [(ngModel)]="username" name="username" required />
-      <button type="submit">Join Game</button>
+      <input type="text" [placeholder]="'home.game_code' | translate" [(ngModel)]="gameCode" name="gameCode" required />
+      <input type="text" [placeholder]="'home.nickname' | translate" [(ngModel)]="username" name="username" required />
+      <button type="submit">{{ 'home.join_button' | translate }}</button>
     </form>
   </div>
 
   <div class="divider"></div>
 
   <div class="organizer-section">
-    <h2>Are You an Organizer?</h2>
-    <button (click)="goToLogin()">Login</button>
-    <button (click)="goToRegister()">Register</button>
+    <h2>{{ 'home.organizer_prompt' | translate }}</h2>
+    <button (click)="goToLogin()">{{ 'navbar.login' | translate }}</button>
+    <button (click)="goToRegister()">{{ 'navbar.register' | translate }}</button>
   </div>
 </div>

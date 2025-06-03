@@ -1,0 +1,72 @@
+{
+  "home": {
+    "title": "Hazine Avına Hoş Geldiniz",
+    "join_game": "Bir Oyuna Katıl",
+    "game_code": "Oyun Kodu",
+    "nickname": "Takma Adınız",
+    "join_button": "Oyuna Katıl",
+    "organizer_prompt": "Bir Organizatör müsünüz?"
+  },
+  "navbar": {
+    "home": "Ana Sayfa",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış Yap",
+    "dashboard": "Kontrol Paneli"
+  },
+  "player": {
+    "welcome": "Hoş geldin, {{username}}!",
+    "location": "Konum {{number}}",
+    "hint": "İpucu",
+    "enter_code_placeholder": "Konum kodunu girin...",
+    "check_button": "Kontrol et",
+    "completed_location": "Bu konumu tamamladınız!",
+    "next_location": "Sonraki Konum",
+    "game_completed": "Hazine avını tamamladınız!",
+    "play_again": "Bir oyun daha oynamak ister misiniz?",
+    "join_game": "Oyuna katıl",
+    "submit_answer": "Cevapla",
+    "enter_answer_placeholder": "Cevabınız..."
+  },
+  "errors": {
+    "game_not_found": "Oyun bulunamadı.",
+    "incorrect_location_code": "Kod yanlış, tekrar deneyin.",
+    "game_not_found_with_tip": "Oyun bulunamadı. Lütfen kodu kontrol edin.",
+    "missing_game_code_or_nickname": "Lütfen hem oyun kodunu hem de kullanıcı adını girin."
+  },
+  "auth": {
+    "login_title": "Giriş Yap",
+    "login_button": "Giriş",
+    "no_account": "Hesabınız yok mu?",
+    "register_here": "Buradan kayıt olun",
+    "register_title": "Hesap Oluştur",
+    "register_button": "Kayıt Ol",
+    "already_account": "Zaten hesabınız var mı?",
+    "login_here": "Buradan giriş yapın"
+  },
+  "form": {
+    "name": "İsim",
+    "email": "E-posta",
+    "password": "Şifre",
+    "name_placeholder": "İsminiz",
+    "email_placeholder": "ornek@ornek.com",
+    "password_placeholder": "En az 6 karakter"
+  },
+  "validation": {
+    "name_required": "İsim zorunludur.",
+    "name_minlength": "En az 5 karakter olmalıdır.",
+    "email_required": "E-posta zorunludur.",
+    "invalid_email": "Geçerli bir e-posta girin.",
+    "password_required": "Şifre zorunludur.",
+    "password_minlength": "En az 6 karakter olmalıdır."
+  },
+  "dashboard": {
+    "organizer_dashboard": "Organizatör Kontrol Paneli",
+    "create_new_game": "Yeni Oyun Oluştur",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "players": "Oyuncular",
+    "progress": "İlerleme",
+    "no_players_yet": "Henüz oyuncu katılmadı."
+  }
+}

@@ -1,32 +1,47 @@
-<ng-container *ngIf="!loading; else loadingSpinner">
-  <div class="game-container" *ngIf="hasMoreLocations; else finished">
-    <h2>Welcome, {{ username() }}!</h2>
-    <h3>Location {{ currentLocationIndex() + 1 }}</h3>
+<h2>{{ 'player.welcome' | translate:{ username: username() } }}</h2>
 
-    <div *ngIf="!showLocation() && !isGameCompleted()">
-      <p class="hint">Hint: {{ hint }}</p>
-      <form (ngSubmit)="checkCode()">
-        <input name="answer" type="text" [(ngModel)]="codeInput" placeholder="Enter location code..." />
-        <button type="submit" class="primary-btn">Kontrol et</button>
-      </form>
-      <p class="error" *ngIf="error()">{{ error() }}</p>
-    </div>
+<div class="game-container" *ngIf="!isGameCompleted(); else completed">
+  <h3>{{ 'player.location' | translate:{ number: (currentLocationIndex() + 1) } }}</h3>
 
-    <app-player-location
-      *ngIf="showLocation()"
-      [location]="locations()[currentLocationIndex()]"
-      [index]="currentLocationIndex()"
-      (locationCompleted)="handleLocationCompleted()"
-      (nextLocation)="nextLocation()"
-    ></app-player-location>
+  <div *ngIf="!showLocation() && !locationCompleted()">
+    <p class="hint">{{ 'player.hint' | translate }}: {{ hint }}</p>
+    <img *ngIf="image" [src]="image" alt="Location clue image" class="location-image" />
+
+    <form (ngSubmit)="checkCode()">
+      <input
+        name="answer"
+        type="text"
+        [(ngModel)]="codeInput"
+        [placeholder]="'player.enter_code_placeholder' | translate" />
+      <button type="submit" class="primary-btn">{{ 'player.check_button' | translate }}</button>
+    </form>
+    <p class="error" *ngIf="error()">{{ error() }}</p>
   </div>
 
-  <ng-template #finished class="completed-message">
-    <div class="game-container">
-      <h2>🎉 You've completed the scavenger hunt!</h2>
-    </div>
-  </ng-template>
-</ng-container>
+  <app-player-location
+    *ngIf="showLocation()"
+    [location]="locations()[currentLocationIndex()]"
+    [index]="currentLocationIndex()"
+    (locationCompleted)="handleLocationCompleted()"
+  ></app-player-location>
+
+  <div *ngIf="locationCompleted() && hasMoreLocations">
+    <p class="completed-message">🎯 {{ 'player.completed_location' | translate }}</p>
+    <button class="primary-btn" (click)="toNextLocation()">
+      {{ 'player.next_location' | translate }}
+    </button>
+  </div>
+</div>
+
+<ng-template #completed>
+  <div class="game-container">
+    <h2>🎉 {{ 'player.game_completed' | translate }}</h2>
+    <p class="home-link">
+      {{ 'player.play_again' | translate }}
+      <a routerLink="/home">{{ 'player.join_game' | translate }}</a>.
+    </p>
+  </div>
+</ng-template>
 
 <ng-template #loadingSpinner>
   <div class="game-container" style="text-align: center;">

@@ -3,13 +3,14 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -18,11 +19,15 @@ export class HomeComponent {
   username: string = '';
   loading: boolean = false;
 
-  constructor(private router: Router, private auth: AuthService, private firestore: Firestore) {}
+  constructor(private router: Router, 
+    private auth: AuthService, 
+    private firestore: Firestore,
+    private translate: TranslateService) {}
 
   async joinGame() {
     if (!this.username.trim() || !this.gameCode.trim()) {
-      alert('Please enter both a game code and a nickname.');
+      const message = this.translate.instant('errors.missing_game_code_or_nickname');
+      alert(message);
       return;
     }
 
@@ -35,7 +40,8 @@ export class HomeComponent {
       const gameSnap = await getDoc(gameRef);
       
       if (!gameSnap.exists()) {
-        alert('Game not found. Please check the code.');
+        const message = this.translate.instant('errors.game_not_found_with_tip');
+        alert(message);
         this.loading = false;
         return;
       }

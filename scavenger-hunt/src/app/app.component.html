@@ -1,27 +1,27 @@
 <div class="app-container">
   <!-- Navbar or Header Section -->
   <header class="navbar">
-    <nav>
-      <ul>
-        <!-- Show Home only if NOT logged in -->
-        <li *ngIf="!user"><a routerLink="/home" class="nav-link">Home</a></li>
+  <nav>
+    <ul>
+      <li *ngIf="!user">
+        <a routerLink="/home" class="nav-link">{{ 'navbar.home' | translate }}</a>
+      </li>
+      <li *ngIf="user">
+        <a routerLink="/organizer-dashboard" class="nav-link">{{ 'navbar.dashboard' | translate }}</a>
+      </li>
+      <li *ngIf="user">
+        <button (click)="logout()" class="nav-link logout-button">{{ 'navbar.logout' | translate }}</button>
+      </li>
+    </ul>
 
-        <!-- Show Dashboard button only if logged in -->
-        <li *ngIf="user">
-          <a routerLink="/organizer-dashboard" class="nav-link">Dashboard</a>
-        </li>
+    <select (change)="changeLanguage($event)">
+      <option value="en">English</option>
+      <option value="tr">Türkçe</option>
+      <option value="nl">Nederlands</option>
+    </select>
+  </nav>
+</header>
 
-        <!-- Show login and register ONLY if NOT logged in -->
-        <!-- <li *ngIf="!user"><a routerLink="/login" class="nav-link">Login</a></li>
-        <li *ngIf="!user"><a routerLink="/register" class="nav-link">Register</a></li> -->
-
-        <!-- Show logout button ONLY if logged in -->
-        <li *ngIf="user">
-          <button (click)="logout()" class="nav-link logout-button">Logout</button>
-        </li>
-      </ul>
-    </nav>
-  </header>
 
 
   <!-- Main Content Area -->

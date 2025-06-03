@@ -1,54 +1,54 @@
 <div class="register-container">
-  <h2>Create Account</h2>
+  <h2>{{ 'auth.register_title' | translate }}</h2>
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group">
-      <label for="name">Name</label>
+      <label for="name">{{ 'form.name' | translate }}</label>
       <input
         id="name"
         type="text"
         formControlName="name"
         [class.invalid]="name?.invalid && (name?.touched || name?.dirty)"
-        placeholder="name"
+        [placeholder]="'form.name_placeholder' | translate"
       />
       <div class="error" *ngIf="name?.errors && (name?.touched || name?.dirty)">
-        <span *ngIf="name?.errors?.['required']">Name is required.</span>
-        <span *ngIf="name?.errors?.['minlength']">Minimum 5 characters.</span>
+        <span *ngIf="name?.errors?.['required']">{{ 'validation.name_required' | translate }}</span>
+        <span *ngIf="name?.errors?.['minlength']">{{ 'validation.name_minlength' | translate }}</span>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="email">Email</label>
+      <label for="email">{{ 'form.email' | translate }}</label>
       <input
         id="email"
         type="email"
         formControlName="email"
         [class.invalid]="email?.invalid && (email?.touched || email?.dirty)"
-        placeholder="you@example.com"
+        [placeholder]="'form.email_placeholder' | translate"
       />
       <div class="error" *ngIf="email?.errors && (email?.touched || email?.dirty)">
-        <span *ngIf="email?.errors?.['required']">Email is required.</span>
-        <span *ngIf="email?.errors?.['email']">Enter a valid email.</span>
+        <span *ngIf="email?.errors?.['required']">{{ 'validation.email_required' | translate }}</span>
+        <span *ngIf="email?.errors?.['email']">{{ 'validation.invalid_email' | translate }}</span>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">{{ 'form.password' | translate }}</label>
       <input
         id="password"
         type="password"
         formControlName="password"
         [class.invalid]="password?.invalid && (password?.touched || password?.dirty)"
-        placeholder="Minimum 6 characters"
+        [placeholder]="'form.password_placeholder' | translate"
       />
       <div class="error" *ngIf="password?.errors && (password?.touched || password?.dirty)">
-        <span *ngIf="password?.errors?.['required']">Password is required.</span>
-        <span *ngIf="password?.errors?.['minlength']">Minimum 6 characters.</span>
+        <span *ngIf="password?.errors?.['required']">{{ 'validation.password_required' | translate }}</span>
+        <span *ngIf="password?.errors?.['minlength']">{{ 'validation.password_minlength' | translate }}</span>
       </div>
     </div>
 
     <div class="form-actions">
-      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      <button type="submit" [disabled]="registerForm.invalid">{{ 'auth.register_button' | translate }}</button>
     </div>
 
     <div class="error global" *ngIf="errorMessage">
@@ -57,6 +57,6 @@
   </form>
 
   <p class="login-link">
-    Already have an account? <a routerLink="/login">Login here</a>.
+    {{ 'auth.already_account' | translate }} <a routerLink="/login">{{ 'auth.login_here' | translate }}</a>.
   </p>
 </div>

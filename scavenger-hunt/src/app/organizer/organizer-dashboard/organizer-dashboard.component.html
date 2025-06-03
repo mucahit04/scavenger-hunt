@@ -1,7 +1,9 @@
 <div class="dashboard">
-  <h2>Organizer Dashboard</h2>
+  <h2>{{ 'dashboard.organizer_dashboard' | translate }}</h2>
 
-  <button class="create-button" (click)="createGame()">+ Create New Game</button>
+  <button class="create-button" (click)="createGame()">
+    + {{ 'dashboard.create_new_game' | translate }}
+  </button>
 
   <div *ngFor="let game of games" class="game-section">
     <div class="game-header-row">
@@ -20,13 +22,15 @@
     </div>
   
     <div *ngIf="expandedGameCode === game.gameCode" class="game-details">
-      <p><strong>Players:</strong></p>
+      <p><strong>{{ 'dashboard.players' | translate }}:</strong></p>
       <ul *ngIf="playerMap[game.gameCode]?.length; else noPlayers">
         <li *ngFor="let player of playerMap[game.gameCode]">
-          <strong>{{ player.username }}</strong> - Progress: {{ getPlayerProgress(player, game.totalLocations) }}
+          <strong>{{ player.username }}</strong> - {{ 'dashboard.progress' | translate }}: {{ getPlayerProgress(player, game.totalLocations) }}
         </li>
       </ul>
-      <ng-template #noPlayers><p>No players joined yet.</p></ng-template>
+      <ng-template #noPlayers>
+        <p>{{ 'dashboard.no_players_yet' | translate }}</p>
+      </ng-template>
     </div>
   </div>
   

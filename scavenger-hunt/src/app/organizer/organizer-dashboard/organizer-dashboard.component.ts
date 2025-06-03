@@ -4,12 +4,13 @@ import { Firestore, collection, getDocs, query, where, doc, getDoc, writeBatch, 
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { dummyGames } from './dummy-games';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-organizer-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './organizer-dashboard.component.html',
   styleUrls: ['./organizer-dashboard.component.css'],
 })
