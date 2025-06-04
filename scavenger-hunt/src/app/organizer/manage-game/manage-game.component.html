@@ -1,28 +1,32 @@
 <div class="manage-game">
-  <h2>{{ isEditMode ? 'Edit Game' : 'Create Game' }}</h2>
+  <h2>{{ isEditMode ? ('manage.editTitle' | translate) : ('manage.createTitle' | translate) }}</h2>
 
   <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
     <label>
-      Game Name:
+      {{ 'manage.gameName' | translate }}:
       <input type="text" formControlName="name" />
     </label>
 
-    <h3>Locations</h3>
+    <h3>{{ 'manage.locationsTitle' | translate }}</h3>
     <div formArrayName="locations">
       <div *ngFor="let loc of locations.controls; let i = index" [formGroupName]="i" class="location-form">
-        <label>Code: <input formControlName="code" /></label>
-        <label>Question: <input formControlName="question" /></label>
-        <label>Keyword: <input formControlName="keyword" /></label>
-        <label>Answer: <input formControlName="answer" /></label>
-        <label>Image: <input type="file" (change)="onFileSelected($event, i)" /></label>
+        <label>{{ 'manage.passcode' | translate }}: <input formControlName="code" /></label>
+        <label>{{ 'manage.question' | translate }}: <input formControlName="question" /></label>
+        <!-- <label>{{ 'manage.keyword' | translate }}: <input formControlName="keyword" /></label> -->
+        <label>{{ 'manage.answer' | translate }}: <input formControlName="answer" /></label>
+        <label>{{ 'manage.image' | translate }}: <input type="file" (change)="onFileSelected($event, i)" /></label>
         <img *ngIf="loc.value.imageUrl" [src]="loc.value.imageUrl" width="100" />
-        <label>Hint: <input formControlName="hint" /></label>
-        <button type="button" (click)="removeLocation(i)">Remove</button>
+        <label>{{ 'manage.hint' | translate }}: <input formControlName="hint" /></label>
+        <button type="button" (click)="removeLocation(i)">{{ 'manage.removeLocation' | translate }}</button>
         <hr />
       </div>
     </div>
 
-    <button type="button" (click)="addLocation()">+ Add Location</button>
-    <button type="submit" [disabled]="gameForm.invalid">Save Game</button>
+    <button type="button" (click)="addLocation()">
+      {{ 'manage.addLocation' | translate }}
+    </button>
+    <button type="submit" [disabled]="gameForm.invalid">
+      {{ 'manage.saveGame' | translate }}
+    </button>
   </form>
 </div>

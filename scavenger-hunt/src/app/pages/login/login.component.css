@@ -13,7 +13,7 @@ h2 {
   text-align: center;
   color: var(--primary-text, #4b2e0e);
   margin-bottom: 1.5rem;
-  font-family: var(--heading-font, 'Georgia', serif);
+  font-family: var(--font-family, 'Georgia', serif);
 }
 
 form {

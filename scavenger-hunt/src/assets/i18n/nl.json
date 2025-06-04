@@ -1,0 +1,86 @@
+{
+  "home": {
+    "join_game": "Deelnemen aan een Spel",
+    "game_code": "Spelcode",
+    "nickname": "Je Bijnaam",
+    "join_button": "Meedoen",
+    "organizer_prompt": "Ben je een Organisator?"
+  },
+  "navbar": {
+    "title": "Welkom bij de Schatzoektocht",
+    "home": "Home",
+    "login": "Inloggen",
+    "register": "Registreren",
+    "logout": "Uitloggen",
+    "dashboard": "Dashboard"
+  },
+  "player": {
+    "welcome": "Welkom, {{username}}!",
+    "location": "Locatie {{number}}",
+    "hint": "Hint",
+    "enter_code_placeholder": "Voer locatiecode in...",
+    "check_button": "Controleren",
+    "completed_location": "🎯 Je hebt deze locatie voltooid!",
+    "next_location": "Volgende Locatie",
+    "game_completed": "🎉 Je hebt de speurtocht voltooid!",
+    "play_again": "Wil je nog een keer spelen?",
+    "join_game": "Doe mee aan een spel",
+    "submit_answer": "Antwoorden",
+    "enter_answer_placeholder": "Je antwoord..."
+  },
+  "errors": {
+    "game_not_found": "Spel niet gevonden.",
+    "incorrect_location_code": "Verkeerde code, probeer opnieuw.",
+    "game_not_found_with_tip": "Spel niet gevonden. Controleer de code.",
+    "missing_game_code_or_nickname": "Vul zowel een spelcode als een bijnaam in."
+  },
+  "auth": {
+    "login_title": "Inloggen",
+    "login_button": "Inloggen",
+    "no_account": "Nog geen account?",
+    "register_here": "Registreer hier",
+    "register_title": "Account Aanmaken",
+    "register_button": "Registreren",
+    "already_account": "Heb je al een account?",
+    "login_here": "Log hier in"
+  },
+  "form": {
+    "name": "Naam",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "name_placeholder": "Jouw naam",
+    "email_placeholder": "jij@voorbeeld.com",
+    "password_placeholder": "Minimaal 6 tekens"
+  },
+  "validation": {
+    "name_required": "Naam is verplicht.",
+    "name_minlength": "Minimaal 5 tekens.",
+    "email_required": "E-mail is verplicht.",
+    "invalid_email": "Voer een geldig e-mailadres in.",
+    "password_required": "Wachtwoord is verplicht.",
+    "password_minlength": "Minimaal 6 tekens."
+  },
+  "dashboard": {
+    "organizer_dashboard": "Organisator Dashboard",
+    "create_new_game": "Nieuw Spel Maken",
+    "edit": "Bewerken",
+    "delete": "Verwijderen",
+    "players": "Spelers",
+    "progress": "Voortgang",
+    "no_players_yet": "Nog geen spelers aangesloten."
+  },
+  "manage": {
+    "editTitle": "Spel Bewerken",
+    "createTitle": "Spel Aanmaken",
+    "gameName": "Spelnaam",
+    "locationsTitle": "Locaties",
+    "passcode": "Toegangscode",
+    "question": "Vraag",
+    "answer": "Antwoord",
+    "image": "Afbeelding",
+    "hint": "Hint",
+    "removeLocation": "Verwijderen",
+    "addLocation": "+ Locatie Toevoegen",
+    "saveGame": "Spel Opslaan"
+  }
+}

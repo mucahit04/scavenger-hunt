@@ -1,13 +1,13 @@
 {
   "home": {
-    "title": "Hazine Avına Hoş Geldiniz",
     "join_game": "Bir Oyuna Katıl",
     "game_code": "Oyun Kodu",
     "nickname": "Takma Adınız",
     "join_button": "Oyuna Katıl",
-    "organizer_prompt": "Bir Organizatör müsünüz?"
+    "organizer_prompt": "Organizatör müsünüz?"
   },
   "navbar": {
+    "title": "Hazine Avına Hoş Geldiniz",
     "home": "Ana Sayfa",
     "login": "Giriş Yap",
     "register": "Kayıt Ol",
@@ -19,12 +19,12 @@
     "location": "Konum {{number}}",
     "hint": "İpucu",
     "enter_code_placeholder": "Konum kodunu girin...",
-    "check_button": "Kontrol et",
-    "completed_location": "Bu konumu tamamladınız!",
+    "check_button": "Kontrol Et",
+    "completed_location": "🎯 Bu konumu tamamladınız!",
     "next_location": "Sonraki Konum",
-    "game_completed": "Hazine avını tamamladınız!",
-    "play_again": "Bir oyun daha oynamak ister misiniz?",
-    "join_game": "Oyuna katıl",
+    "game_completed": "🎉 Hazine avını tamamladınız!",
+    "play_again": "Bir oyun daha oynamak ister misin?",
+    "join_game": "Bir oyuna katıl",
     "submit_answer": "Cevapla",
     "enter_answer_placeholder": "Cevabınız..."
   },
@@ -32,11 +32,11 @@
     "game_not_found": "Oyun bulunamadı.",
     "incorrect_location_code": "Kod yanlış, tekrar deneyin.",
     "game_not_found_with_tip": "Oyun bulunamadı. Lütfen kodu kontrol edin.",
-    "missing_game_code_or_nickname": "Lütfen hem oyun kodunu hem de kullanıcı adını girin."
+    "missing_game_code_or_nickname": "Lütfen hem oyun kodunu hem takma adınızı girin."
   },
   "auth": {
     "login_title": "Giriş Yap",
-    "login_button": "Giriş",
+    "login_button": "Giriş Yap",
     "no_account": "Hesabınız yok mu?",
     "register_here": "Buradan kayıt olun",
     "register_title": "Hesap Oluştur",
@@ -45,28 +45,42 @@
     "login_here": "Buradan giriş yapın"
   },
   "form": {
-    "name": "İsim",
+    "name": "Ad",
     "email": "E-posta",
     "password": "Şifre",
-    "name_placeholder": "İsminiz",
-    "email_placeholder": "ornek@ornek.com",
+    "name_placeholder": "Adınız",
+    "email_placeholder": "ornek@eposta.com",
     "password_placeholder": "En az 6 karakter"
   },
   "validation": {
-    "name_required": "İsim zorunludur.",
-    "name_minlength": "En az 5 karakter olmalıdır.",
-    "email_required": "E-posta zorunludur.",
+    "name_required": "İsim gereklidir.",
+    "name_minlength": "En az 5 karakter olmalı.",
+    "email_required": "E-posta gereklidir.",
     "invalid_email": "Geçerli bir e-posta girin.",
-    "password_required": "Şifre zorunludur.",
-    "password_minlength": "En az 6 karakter olmalıdır."
+    "password_required": "Şifre gereklidir.",
+    "password_minlength": "En az 6 karakter olmalı."
   },
   "dashboard": {
-    "organizer_dashboard": "Organizatör Kontrol Paneli",
+    "organizer_dashboard": "Organizatör Paneli",
     "create_new_game": "Yeni Oyun Oluştur",
     "edit": "Düzenle",
     "delete": "Sil",
     "players": "Oyuncular",
     "progress": "İlerleme",
-    "no_players_yet": "Henüz oyuncu katılmadı."
+    "no_players_yet": "Henüz katılan oyuncu yok."
+  },
+  "manage": {
+    "editTitle": "Oyunu Düzenle",
+    "createTitle": "Oyun Oluştur",
+    "gameName": "Oyun Adı",
+    "locationsTitle": "Konumlar",
+    "passcode": "Şifre",
+    "question": "Soru",
+    "answer": "Cevap",
+    "image": "Görsel",
+    "hint": "İpucu",
+    "removeLocation": "Kaldır",
+    "addLocation": "+ Konum Ekle",
+    "saveGame": "Oyunu Kaydet"
   }
 }

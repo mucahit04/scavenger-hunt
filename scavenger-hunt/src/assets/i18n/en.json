@@ -1,6 +1,5 @@
 {
   "home": {
-    "title": "Welcome to the Treasure Hunt",
     "join_game": "Join a Game",
     "game_code": "Game Code",
     "nickname": "Your Nickname",
@@ -8,6 +7,7 @@
     "organizer_prompt": "Are You an Organizer?"
   },
   "navbar": {
+    "title": "Welcome to the Treasure Hunt",
     "home": "Home",
     "login": "Login",
     "register": "Register",
@@ -68,5 +68,19 @@
     "players": "Players",
     "progress": "Progress",
     "no_players_yet": "No players joined yet."
+  },
+  "manage": {
+    "editTitle": "Edit Game",
+    "createTitle": "Create Game",
+    "gameName": "Game Name",
+    "locationsTitle": "Locations",
+    "passcode": "PassCode",
+    "question": "Question",
+    "answer": "Answer",
+    "image": "Image",
+    "hint": "Hint",
+    "removeLocation": "Remove",
+    "addLocation": "+ Add Location",
+    "saveGame": "Save Game"
   }
 }

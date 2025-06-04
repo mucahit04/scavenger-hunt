@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    🗺️ <span class="title">{{'navbar.title' | translate}} </span>
+    <button class="menu-icon" (click)="toggleMenu()" [class.open]="isMenuOpen">
+        <img [src]="isMenuOpen ? '../../assets/icons/menu_close.svg' : '../../assets/icons/menu_open.svg'" alt="Menu icon">
+    </button>
+  </div>
+
+  <ul class="nav-links" [@menuAnimation]="isMenuOpen ? 'open' : 'closed'">
+    <li *ngIf="!user">
+      <a routerLink="/home" (click)="toggleMenu()">{{ 'navbar.home' | translate }}</a>
+    </li>
+    <li *ngIf="!user">
+      <a routerLink="/login" (click)="toggleMenu()">{{ 'navbar.login' | translate }}</a>
+    </li>
+    <li *ngIf="!user">
+      <a routerLink="/register" (click)="toggleMenu()">{{ 'navbar.register' | translate }}</a>
+    </li>
+    <li *ngIf="user">
+      <a routerLink="/organizer-dashboard" (click)="toggleMenu()">{{ 'navbar.dashboard' | translate }}</a>
+    </li>
+    <li *ngIf="user">
+      <button (click)="logout()" class="logout-btn">{{ 'navbar.logout' | translate }}</button>
+    </li>
+
+    <li class="lang-switcher">
+      <!-- <button *ngFor="let lang of languages" > -->
+        <img *ngFor="let lang of languages" (click)="selectLanguage(lang.code)" src="../../assets/icons/{{lang.emoji}}.png" alt="">
+      <!-- </button> -->
+    </li>
+  </ul>
+</nav>

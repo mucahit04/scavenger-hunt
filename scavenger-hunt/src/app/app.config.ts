@@ -14,6 +14,8 @@ import { translateProviders } from './translate.provider';
 import { getStorage } from '@angular/fire/storage';
 import { provideStorage } from '@angular/fire/storage';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // Required for the loader
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,11 +24,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [
     ProgressService,
+    BrowserAnimationsModule,
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),
-
+    
     // 👇 Firebase initialization
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),

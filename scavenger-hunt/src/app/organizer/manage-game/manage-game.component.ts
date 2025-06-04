@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Firestore, addDoc, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService } from '../../services/auth.service';
 import { UploadService } from '../../services/upload.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-manage-game',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslateModule],
   providers:[UploadService],
   templateUrl: './manage-game.component.html',
   styleUrls: ['./manage-game.component.css']

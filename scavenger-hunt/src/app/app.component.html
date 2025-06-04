@@ -1,34 +1,12 @@
 <div class="app-container">
   <!-- Navbar or Header Section -->
-  <header class="navbar">
-  <nav>
-    <ul>
-      <li *ngIf="!user">
-        <a routerLink="/home" class="nav-link">{{ 'navbar.home' | translate }}</a>
-      </li>
-      <li *ngIf="user">
-        <a routerLink="/organizer-dashboard" class="nav-link">{{ 'navbar.dashboard' | translate }}</a>
-      </li>
-      <li *ngIf="user">
-        <button (click)="logout()" class="nav-link logout-button">{{ 'navbar.logout' | translate }}</button>
-      </li>
-    </ul>
-
-    <select [(value)]="currentLang" (change)="changeLanguage($event)">
-      <option value="en">English</option>
-      <option value="tr">Türkçe</option>
-      <option value="nl">Nederlands</option>
-    </select>
-  </nav>
-</header>
-
-
-
+  <header class="header">
+    <app-navbar></app-navbar>
+  </header>
   <!-- Main Content Area -->
   <main>
     <router-outlet></router-outlet>
   </main>
-
   <!-- Footer Section (Optional) -->
   <footer class="footer">
     <p>&copy; 2025 Hevî. All rights reserved.</p>
