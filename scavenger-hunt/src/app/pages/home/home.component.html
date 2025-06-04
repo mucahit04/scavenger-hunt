@@ -10,7 +10,7 @@
 
   <div class="divider"></div>
 
-  <div class="organizer-section">
+  <div class="organizer-section" *ngIf="(user$ | async) === null">
     <h2>{{ 'home.organizer_prompt' | translate }}</h2>
     <button (click)="goToLogin()">{{ 'navbar.login' | translate }}</button>
     <button (click)="goToRegister()">{{ 'navbar.register' | translate }}</button>

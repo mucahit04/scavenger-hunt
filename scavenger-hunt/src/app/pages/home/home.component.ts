@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { User } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,15 +16,21 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   gameCode: string = '';
   username: string = '';
-  loading: boolean = false;
+  loading: boolean = false;  
+  user$!: Observable<User | null>;
+  
 
   constructor(private router: Router, 
     private auth: AuthService, 
     private firestore: Firestore,
     private translate: TranslateService) {}
+    
+  ngOnInit(): void {
+    this.user$ = this.auth.getUser();
+  }
 
   async joinGame() {
     if (!this.username.trim() || !this.gameCode.trim()) {

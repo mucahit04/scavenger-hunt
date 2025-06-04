@@ -14,7 +14,12 @@
         <label>{{ 'manage.question' | translate }}: <input formControlName="question" /></label>
         <!-- <label>{{ 'manage.keyword' | translate }}: <input formControlName="keyword" /></label> -->
         <label>{{ 'manage.answer' | translate }}: <input formControlName="answer" /></label>
-        <label>{{ 'manage.image' | translate }}: <input type="file" (change)="onFileSelected($event, i)" /></label>
+        <label class="custom-file-upload">
+          {{ 'manage.image' | translate }}
+          <input type="file" (change)="onFileSelected($event, i)" />
+          <img class="upload-image" src="assets/icons/add_a_photo_black.svg" alt="upload a photo">
+        </label>
+        <!-- <label>{{ 'manage.image' | translate }}: <input type="file" (change)="onFileSelected($event, i)" /></label> -->
         <img *ngIf="loc.value.imageUrl" [src]="loc.value.imageUrl" width="100" />
         <label>{{ 'manage.hint' | translate }}: <input formControlName="hint" /></label>
         <button type="button" (click)="removeLocation(i)">{{ 'manage.removeLocation' | translate }}</button>

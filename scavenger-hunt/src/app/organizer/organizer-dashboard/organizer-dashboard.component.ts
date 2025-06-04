@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { dummyGames } from './dummy-games';
 import { TranslateModule } from '@ngx-translate/core';
+import { take } from 'rxjs';
 
 
 @Component({
@@ -26,21 +27,15 @@ export class OrganizerDashboardComponent implements OnInit {
   playerMap: { [gameCode: string]: any[] } = {};
 
   async ngOnInit(): Promise<void> {
-    const user = this.authService.getUser();
-    this.organizerId = user?.uid ?? '';
+    this.authService.getUser().pipe(take(1)).subscribe(user => {
+      if (!user) {
+        this.router.navigate(['/']);
+        return;
+      }
 
-    if (!this.organizerId) {
-      this.router.navigate(['/']);
-      return;
-    }
-
-    await this.fetchGames();
-  }
-
-  
-  async addTestDoc() {
-    const collRef = collection(this.firestore, 'testCollection');
-    await addDoc(collRef, { message: 'Hello from Angular + Firebase!' });
+      this.organizerId = user.uid;
+      this.fetchGames();
+    });
   }
   
   async fetchGames(): Promise<void> {
@@ -75,20 +70,6 @@ export class OrganizerDashboardComponent implements OnInit {
   }
 
   async fetchPlayersForGame(gameCode: string) {
-    // if (gameCode === 'test123') {
-    //   // Return dummy players for test game
-    //   this.playerMap[gameCode] = [
-    //     {
-    //       username: 'player1',
-    //       progress: { "1": true, "2": true }
-    //     },
-    //     {
-    //       username: 'player2',
-    //       progress: { "1": true }
-    //     }
-    //   ];
-    //   return;
-    // }
 
     const playersRef = collection(this.firestore, `games/${gameCode}/players`);
     const querySnapshot = await getDocs(playersRef);

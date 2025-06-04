@@ -11,6 +11,8 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { Observable } from 'rxjs';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -42,8 +44,8 @@ import {
 export class NavbarComponent implements OnInit{
   isMenuOpen = false;
   currentLang = 'en';
-  user: any;
-
+  user$!: Observable<User | null>;
+  
   languages = [
     { code: 'en', emoji: 'us' },
     { code: 'tr', emoji: 'tr' },
@@ -58,7 +60,7 @@ export class NavbarComponent implements OnInit{
     this.currentLang = translate.currentLang || 'en';
   }
   ngOnInit(): void {
-    this.user = this.authService.getUser(); // <-- track login state
+    this.user$ = this.authService.getUser();
   }
 
   toggleMenu() {

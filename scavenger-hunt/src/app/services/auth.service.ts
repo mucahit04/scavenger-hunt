@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, setDoc, doc, serverTimestamp } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  currentUser: User | null = null;
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   constructor(
     private auth: Auth,
@@ -13,7 +14,7 @@ export class AuthService {
     private router: Router
   ) {
     onAuthStateChanged(this.auth, (user) => {
-      this.currentUser = user;
+      this.setUser(user);
     });
   }
 
@@ -36,29 +37,39 @@ export class AuthService {
 
   async logout(): Promise<void> {
     await signOut(this.auth);
-    this.currentUser = null;
+    this.setUser(null);
     await this.router.navigate(['/']);
   }
 
-  getUser(): User | null {
-    return this.currentUser;
+  getUser(): Observable<User | null> {
+    return this.currentUserSubject.asObservable();
   }
 
-  isLoggedIn(): boolean {
-    return !!this.currentUser;
+  get currentUserValue(): User | null {
+    return this.currentUserSubject.value;
+  }
+
+  setUser(user: User | null): void {
+    this.currentUserSubject.next(user);
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
   }
 
   // Dev helpers
   simulateOrganizerLogin(): void {
-    this.currentUser = {
+    const userDummy = {
       uid: 'dummy-organizer-uid',
       email: 'organizer@test.com',
       displayName: 'Test Organizer',
       isDummy: true
     } as any;
+    this.setUser(userDummy)
   }
 
   clearDummyLogin(): void {
-    this.currentUser = null;
+    this.setUser(null);
   }
 }

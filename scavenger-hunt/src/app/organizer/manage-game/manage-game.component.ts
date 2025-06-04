@@ -6,6 +6,7 @@ import { Firestore, addDoc, collection, doc, getDoc, setDoc } from '@angular/fir
 import { AuthService } from '../../services/auth.service';
 import { UploadService } from '../../services/upload.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-manage-game',
@@ -108,7 +109,7 @@ export class ManageGameComponent {
   async saveGame() {
     if (this.gameForm.invalid) return;
 
-    const user = this.authService.getUser();
+    const user = this.authService.currentUserValue;
     const { name, locations } = this.gameForm.value;
 
     let codeToUse = this.gameCode;

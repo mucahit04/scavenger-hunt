@@ -34,8 +34,10 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
 
     try {
-      await this.auth.login(email, password);
-      await this.router.navigate(['/organizer-dashboard']);
+      const user = await this.auth.login(email, password);
+      if(user.uid){
+        await this.router.navigate(['/organizer-dashboard']);
+      }
     } catch (err: any) {
       this.errorMessage = err.message || 'Login failed.';
     } finally {
