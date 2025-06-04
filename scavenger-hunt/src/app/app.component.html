@@ -14,7 +14,7 @@
       </li>
     </ul>
 
-    <select (change)="changeLanguage($event)">
+    <select [(value)]="currentLang" (change)="changeLanguage($event)">
       <option value="en">English</option>
       <option value="tr">Türkçe</option>
       <option value="nl">Nederlands</option>

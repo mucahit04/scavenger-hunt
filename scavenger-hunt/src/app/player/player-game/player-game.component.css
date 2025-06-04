@@ -12,6 +12,13 @@
   background-position: center;
 }
 
+.location-image{
+  box-sizing: border-box;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .hint {
   font-style: italic;
   margin-bottom: 1rem;

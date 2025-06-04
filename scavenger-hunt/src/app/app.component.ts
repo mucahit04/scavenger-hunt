@@ -14,10 +14,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'Scavenger Hunt';
   user: any = null;
+  currentLang: string = "en"
 
   constructor(private authService: AuthService, 
     private router: Router, 
-    private translate: TranslateService) {}
+    private translate: TranslateService) {
+      this.currentLang = this.translate.currentLang || this.translate.getDefaultLang();
+    }
 
   ngOnInit() {
     document.body.classList.remove('loading');
