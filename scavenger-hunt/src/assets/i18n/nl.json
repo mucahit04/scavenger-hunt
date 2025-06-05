@@ -18,6 +18,7 @@
     "welcome": "Welkom, {{username}}!",
     "location": "Locatie {{number}}",
     "hint": "Hint",
+    "story": "Verhaal",
     "enter_code_placeholder": "Voer locatiecode in...",
     "check_button": "Controleren",
     "completed_location": "🎯 Je hebt deze locatie voltooid!",

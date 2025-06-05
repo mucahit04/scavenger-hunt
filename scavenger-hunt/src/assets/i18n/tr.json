@@ -18,6 +18,7 @@
     "welcome": "Hoş geldin, {{username}}!",
     "location": "Konum {{number}}",
     "hint": "İpucu",
+    "story": "Hikaye",
     "enter_code_placeholder": "Konum kodunu girin...",
     "check_button": "Kontrol Et",
     "completed_location": "🎯 Bu konumu tamamladınız!",
