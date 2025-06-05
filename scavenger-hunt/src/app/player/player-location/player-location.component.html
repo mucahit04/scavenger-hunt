@@ -1,8 +1,13 @@
 <div class="location-container">
   <!-- Question + Answer -->
   <form *ngIf="!completed" (ngSubmit)="submitAnswer()" class="question-section">
+    <h2>{{player.story | translate}}</h2>
     <p class="question-text">
-      {{ location.question | translate }}
+      {{ location.story}}
+    </p>
+    <h2>{{manage.question | translate}}</h2>
+    <p class="question-text">
+      {{ location.question }}
     </p>
     <input
       type="text"

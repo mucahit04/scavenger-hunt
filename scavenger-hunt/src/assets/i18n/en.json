@@ -18,6 +18,7 @@
     "welcome": "Welcome, {{username}}!",
     "location": "Location {{number}}",
     "hint": "Hint",
+    "story": "Story", 
     "enter_code_placeholder": "Enter location code...",
     "check_button": "Check",
     "completed_location": "🎯 You’ve completed this location!",
