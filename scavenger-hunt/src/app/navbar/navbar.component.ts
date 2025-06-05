@@ -73,6 +73,7 @@ export class NavbarComponent implements OnInit{
     this.currentLang = translate.currentLang || 'en';
   }
   ngOnInit(): void {
+    this.translate.use(this.currentLang);
     this.user$ = this.authService.getUser();
     this.router.events.subscribe(() => {
       this.isMenuOpen = false;
