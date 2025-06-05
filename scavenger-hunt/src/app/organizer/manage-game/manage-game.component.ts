@@ -61,7 +61,7 @@ export class ManageGameComponent {
     return this.fb.group({
       code: ['', Validators.required],
       type: ['text', Validators.required],
-      keyword: ['', Validators.required],
+      // keyword: ['', Validators.required],
       question: ['', Validators.required],
       answer: ['', Validators.required],
       hint: [''],
