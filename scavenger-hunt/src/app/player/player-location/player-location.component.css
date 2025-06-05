@@ -37,6 +37,9 @@ span {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   color: var(--primary-color);
+  text-wrap: wrap;
+  overflow-wrap: break-word;
+  overflow-y: scroll;
 }
 
 .story-text{
