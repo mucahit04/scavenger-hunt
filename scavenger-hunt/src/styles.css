@@ -2,12 +2,12 @@
 
 :root {
   --primary-color: #8B4513;           /* SaddleBrown */
-  --accent-color: #FFD700;            /* Gold */
+  --accent-color: #ffd900;            /* Gold */
   --danger-color: #d9534f;
   --background-color: #fdf5e6;        /* Old parchment */
   --card-bg: #fffaf0;
   --text-color: #2c2c2c;
-  --font-family: 'Pirata One', 'Segoe UI', sans-serif;
+  --font-family: 'Edu QLD Hand','Pirata One', 'Segoe UI', sans-serif;
   --border-radius: 8px;
   --button-bg: var(--primary-color);
   --button-text: white;
@@ -42,4 +42,10 @@ button {
   border-radius: var(--border-radius);
   transition: background-color 0.2s;
   font-weight: bold;
+}
+
+h1,h2,h3 {
+  font-family: var(--font-family);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }

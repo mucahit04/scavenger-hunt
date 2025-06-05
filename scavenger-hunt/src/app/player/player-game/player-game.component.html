@@ -1,7 +1,7 @@
 <h2>{{ 'player.welcome' | translate:{ username: username() } }}</h2>
-
+<h3 *ngIf="!isGameCompleted()">{{game().name}}</h3>
 <div class="game-container" *ngIf="!isGameCompleted(); else completed">
-  <h3>{{ 'player.location' | translate:{ number: (currentLocationIndex() + 1) } }}</h3>
+  <h2 class="location-number">{{ 'player.location' | translate:{ number: (currentLocationIndex() + 1) } }}</h2>
 
   <div *ngIf="!showLocation() && !locationCompleted()">
     <p class="hint">{{ 'player.hint' | translate }}: {{ hint }}</p>
@@ -35,7 +35,7 @@
 
 <ng-template #completed>
   <div class="game-container">
-    <h2>🎉 {{ 'player.game_completed' | translate }}</h2>
+    <h2 class="completed">{{ 'player.game_completed' | translate }}</h2>
     <p class="home-link">
       {{ 'player.play_again' | translate }}
       <a routerLink="/home">{{ 'player.join_game' | translate }}</a>.

@@ -12,6 +12,12 @@
   background-position: center;
 }
 
+.completed{
+  text-align: center;
+  font-size: 2rem;
+  color: var(--danger-color);
+  text-shadow: var(--accent-color);
+}
 .location-image{
   box-sizing: border-box;
   max-width: 100%;
@@ -22,8 +28,13 @@
 .hint {
   font-style: italic;
   margin-bottom: 1rem;
-  color: var(--primary-color);
-  font-size: 1.05rem;
+  color: var(--accent-color);
+  font-size: 1.5rem;
+}
+
+.location-number{
+  /* color: var(--accent-color); */
+  font-size: 1.5rem;
 }
 
 input {
@@ -70,10 +81,11 @@ input:focus {
   text-align: center;
   margin-top: 1.5rem;
   font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .home-link a {
-  color: var(--link-color, #007bff);
+  color: var(--accent-color);
   text-decoration: none;
 }
 
