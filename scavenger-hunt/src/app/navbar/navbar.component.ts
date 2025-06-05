@@ -38,6 +38,19 @@ import { User } from '@angular/fire/auth';
       transition('closed <=> open', [
         animate('300ms ease-in-out')
       ])
+    ]),
+    trigger('backdropAnimation',[
+      state('closed', style({
+        opacity: 0,
+        overflow: 'hidden',
+      })),
+      state('open', style({
+        opacity: 1,
+        overflow: 'hidden',
+      })),
+      transition('closed <=> open', [
+        animate('300ms ease-in-out')
+      ])
     ])
   ]
 })
@@ -61,6 +74,9 @@ export class NavbarComponent implements OnInit{
   }
   ngOnInit(): void {
     this.user$ = this.authService.getUser();
+    this.router.events.subscribe(() => {
+      this.isMenuOpen = false;
+    });
   }
 
   toggleMenu() {
@@ -75,6 +91,7 @@ export class NavbarComponent implements OnInit{
 
   logout() {
     this.authService.logout(); // implement in your service
+    this.toggleMenu()
     this.router.navigate(['/home']);
   }
 

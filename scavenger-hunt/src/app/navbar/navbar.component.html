@@ -33,4 +33,7 @@
       <!-- </button> -->
     </li>
   </ul>
+
+  <!-- ✅ Backdrop -->
+  <div class="backdrop" [@menuAnimation]="isMenuOpen ? 'open' : 'closed'" (click)="toggleMenu()"></div>
 </nav>

@@ -6,6 +6,7 @@
   font-family: var(--font-family);
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .navbar-brand {
@@ -25,6 +26,7 @@
   padding-inline-start: 0;
   margin-block-end:0;
   padding-top: 0.5rem;
+  z-index: 1002;
 }
 
 .navbar ul {
@@ -78,6 +80,16 @@
   transform: rotate(90deg); /* or 180deg for cross-like rotation */
 }
 
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* dimmed overlay */
+  z-index: 1001; /* make sure it’s behind the menu, but above other content */
+  transition: bckground-color 0.3s ease;
+}
 
 @media (min-width: 768px) {
   .navbar {
