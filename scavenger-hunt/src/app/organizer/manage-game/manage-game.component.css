@@ -30,7 +30,7 @@ label {
   color: var(--text-color);
 }
 
-input,
+input, textarea,
 select {
   padding: 0.75rem;
   font-size: 1rem;
@@ -42,6 +42,10 @@ select {
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
+}
+
+textarea{
+  height: 4rem;
 }
 
 input:focus,

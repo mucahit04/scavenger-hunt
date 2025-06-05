@@ -12,7 +12,7 @@
       <div *ngFor="let loc of locations.controls; let i = index" [formGroupName]="i" class="location-form">
         <label>{{ 'manage.passcode' | translate }}: <input formControlName="code" /></label>
         <label>{{ 'manage.question' | translate }}: <input formControlName="question" /></label>
-        <label>{{ 'manage.story' | translate }}: <textarea formControlName="story"></textarea></label>
+        <label>{{ 'player.story' | translate }}: <textarea formControlName="story"></textarea></label>
         <label>{{ 'manage.answer' | translate }}: <input formControlName="answer" /></label>
         <label class="custom-file-upload">
           {{ 'manage.image' | translate }}
