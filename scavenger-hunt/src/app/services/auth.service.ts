@@ -23,9 +23,9 @@ export class AuthService {
     // Create organizer profile in Firestore
     await setDoc(doc(this.db, `organizers/${cred.user.uid}`), {
       email: cred.user.email,
-      role: 'organizer',  // optional
-      displayName: name,    // optional future use
-      createdAt: serverTimestamp() // Use this instead of `new Date()`
+      role: 'organizer',
+      displayName: name, 
+      createdAt: serverTimestamp() 
     }, { merge: true });
     return cred.user;
   }

@@ -45,7 +45,8 @@ select {
 }
 
 textarea{
-  height: 4rem;
+  max-width: 100%;
+  min-height: 15rem;
 }
 
 input:focus,
@@ -93,6 +94,9 @@ button[type="submit"]:disabled {
   border-radius: var(--border-radius);
   padding: 1rem;
   margin-bottom: 1rem;
+}
+
+.form-controls{
   position: relative;
   display: flex;
   flex-direction: column;
