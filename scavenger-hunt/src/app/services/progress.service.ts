@@ -7,8 +7,13 @@ export class ProgressService {
 
   async saveProgress(gameCode: string, username: string, index: number, isGameCompleted: boolean): Promise<void> {
     const progressRef = doc(this.firestore, `games/${gameCode}`);
+    let completionTime;
+    if(isGameCompleted){
+      const date = new Date();
+      completionTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    }
     await updateDoc(progressRef, {
-        [`players.${username}`]: {progressIndex: index, completed: isGameCompleted}
+        [`players.${username}`]: {progressIndex: index, completed: isGameCompleted, completedAt: completionTime}
       });
   }
 

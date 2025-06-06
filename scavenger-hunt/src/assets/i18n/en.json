@@ -68,7 +68,8 @@
     "delete": "Delete",
     "players": "Players",
     "progress": "Progress",
-    "no_players_yet": "No players joined yet."
+    "no_players_yet": "No players joined yet.",
+    "completedAt": "Completed at"
   },
   "manage": {
     "editTitle": "Edit Game",

@@ -25,6 +25,7 @@ export class OrganizerDashboardComponent implements OnInit {
   games: any[] = [];
   expandedGameCode: string | null = null;
   playerMap: { [gameCode: string]: any[] } = {};
+  players: {}= {};
 
   async ngOnInit(): Promise<void> {
     this.authService.getUser().pipe(take(1)).subscribe(user => {
@@ -56,12 +57,12 @@ export class OrganizerDashboardComponent implements OnInit {
     });
   }
 
-  toggleGameDetails(gameCode: string): void {
-    if (this.expandedGameCode === gameCode) {
+  toggleGameDetails(game: any): void {
+    if (this.expandedGameCode === game.gameCode) {
       this.expandedGameCode = null;
     } else {
-      this.expandedGameCode = gameCode;
-      this.fetchPlayersForGame(gameCode);
+      this.expandedGameCode = game.gameCode;
+      this.fetchPlayersForGame(game);
     }
   }
 
@@ -69,15 +70,17 @@ export class OrganizerDashboardComponent implements OnInit {
     return this.expandedGameCode === gameCode;
   }
 
-  async fetchPlayersForGame(gameCode: string) {
+  async fetchPlayersForGame(game: any) {
 
-    const playersRef = collection(this.firestore, `games/${gameCode}/players`);
+    const playersRef = collection(this.firestore, `games/${game.gameCode}/players`);
     const querySnapshot = await getDocs(playersRef);
 
-    this.playerMap[gameCode] = querySnapshot.docs.map(doc => ({
+    this.playerMap[game.gameCode] = querySnapshot.docs.map(doc => ({
       username: doc.id,
       ...doc.data()
     }));
+    this.players = game.players;
+    console.log(game.players);
   }
 
   getPlayerProgress(player: any, totalLocations: number): string {

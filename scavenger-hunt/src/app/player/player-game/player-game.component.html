@@ -1,5 +1,5 @@
 <!-- <h2>{{ 'player.welcome' | translate:{ username: username() } }}</h2> -->
-<h3 *ngIf="!isGameCompleted()">{{game().name}}</h3>
+<h3 class="gameName" *ngIf="!isGameCompleted()">{{game()?.name}}</h3>
 <div class="game-container" *ngIf="!isGameCompleted(); else completed">
   <h2 class="location-number">{{ 'player.location' | translate:{ number: (currentLocationIndex() + 1) } }}</h2>
 

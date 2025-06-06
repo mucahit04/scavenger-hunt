@@ -45,7 +45,6 @@ export class PlayerGameComponent {
   constructor(private translate: TranslateService){}
   ngOnInit(): void {
     this.loadGame();
-    console.log(this.locationCompleted());
   }
 
   private async loadGame() {
@@ -70,6 +69,7 @@ export class PlayerGameComponent {
 
     const data = snap.data();
     this.game.set(data);
+    console.log(this.game().name);
     const locationArray: Location[] = Object.values(data['locations'] || {});
     this.locations.set(locationArray);
   }

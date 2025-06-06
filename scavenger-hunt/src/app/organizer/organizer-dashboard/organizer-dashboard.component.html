@@ -7,7 +7,7 @@
 
   <div *ngFor="let game of games" class="game-section">
     <div class="game-header-row">
-      <div class="game-header" (click)="toggleGameDetails(game.gameCode)">
+      <div class="game-header" (click)="toggleGameDetails(game)">
         <strong>{{ game.name }}</strong> ({{ game.gameCode }})
         <span class="arrow" [class.rotated]="isExpanded(game.gameCode)">▼</span>
       </div>
@@ -23,9 +23,9 @@
   
     <div *ngIf="expandedGameCode === game.gameCode" class="game-details">
       <p><strong>{{ 'dashboard.players' | translate }}:</strong></p>
-      <ul *ngIf="playerMap[game.gameCode]?.length; else noPlayers">
-        <li *ngFor="let player of playerMap[game.gameCode]">
-          <strong>{{ player.username }}</strong> - {{ 'dashboard.progress' | translate }}: {{ getPlayerProgress(player, game.totalLocations) }}
+      <ul >
+        <li *ngFor="let player of players | keyvalue">
+          <strong>{{ player.key }}</strong> - {{ 'dashboard.progress' | translate }}: {{ getPlayerProgress(player, game.totalLocations) }} <span *ngIf="player.value['completedAt']"> - {{'dashboard.completedAt' | translate }}: {{player.value['completedAt']}}</span>
         </li>
       </ul>
       <ng-template #noPlayers>

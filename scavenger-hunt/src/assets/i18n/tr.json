@@ -68,7 +68,8 @@
     "delete": "Sil",
     "players": "Oyuncular",
     "progress": "İlerleme",
-    "no_players_yet": "Henüz katılan oyuncu yok."
+    "no_players_yet": "Henüz katılan oyuncu yok.",
+    "completedAt": "Bitirme zamanı"
   },
   "manage": {
     "editTitle": "Oyunu Düzenle",
