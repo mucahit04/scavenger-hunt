@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit{
     private authService: AuthService,
     private router: Router
   ) {
-    this.currentLang = translate.currentLang || 'en';
+    this.currentLang = translate.currentLang || 'tr';
   }
   ngOnInit(): void {
     this.translate.use(this.currentLang);

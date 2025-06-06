@@ -10,15 +10,18 @@
 
 /* Navbar or Header */
 .header {
+  position: fixed;
   background-color: #333;
-  padding-left: 16px;
-  padding-right: 16px;
+  /* padding-left: 16px;
+  padding-right: 16px; */
+  width: 100vw;
 }
 
 /* Main content area */
 main {
   flex: 1;
   padding: 16px;
+  margin-top: 4rem;
 }
 
 /* Footer */

@@ -1,6 +1,7 @@
 /* Mobile-first base styles */
 .navbar {
   color: var(--accent-color);
+  padding: 0.5rem;
   padding-top: 1rem;
   /* padding-bottom: 0.5rem; */
   font-family: var(--font-family);
